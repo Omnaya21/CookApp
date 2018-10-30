@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CookApp</string>
+    <string name="splash_desc">Initial Splash logo description</string>
 </resources>
