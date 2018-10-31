@@ -9,6 +9,7 @@ import android.view.WindowManager;
 // Another comment fro practice
 // Jess made a comment here.
 // Omar's comment
+// Conflict comment
 public class Splash extends AppCompatActivity {
 
     @Override
