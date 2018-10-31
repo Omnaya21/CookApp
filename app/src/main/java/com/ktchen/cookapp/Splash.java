@@ -6,6 +6,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 /// this is our first screen we show to users
+// Another comment fro practice
 public class Splash extends AppCompatActivity {
 
     @Override
