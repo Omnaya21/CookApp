@@ -22,5 +22,8 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
 
         assertEquals("com.ktchen.cookapp", appContext.getPackageName());
+        assertEquals(4, 2 + 2);
     }
+
+    
 }
