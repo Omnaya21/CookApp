@@ -5,19 +5,19 @@ import android.provider.CalendarContract;
 
 import java.util.List;
 
-public class recipe {
+public class Recipe {
 
     private String name;
     private Image picture;
-    private List<ingredient> ingredients;
+    private List<Ingredient> ingredients;
     private List<String> directions;
     private List<CalendarContract.Reminders> reminders;
 
-    recipe(String name){
+    Recipe(String name){
        this.name=name;
     }
 
-    public recipe(String name, Image picture, List<ingredient> ingredients, List<String> directions) {
+    public Recipe(String name, Image picture, List<Ingredient> ingredients, List<String> directions) {
         this.name = name;
         this.picture = picture;
         this.ingredients = ingredients;
@@ -40,11 +40,11 @@ public class recipe {
         this.picture = picture;
     }
 
-    public List<ingredient> getIngredients() {
+    public List<Ingredient> getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<ingredient> ingredients) {
+    public void setIngredients(List<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
 
@@ -63,13 +63,13 @@ public class recipe {
     public void setReminders(List<CalendarContract.Reminders> reminders) {
         this.reminders = reminders;
     }
-    public void addItem (List<recipe> item) {
+    public void addItem (List<Recipe> item) {
 
     }
-    public void removeItem (List<recipe> item) {
+    public void removeItem (List<Recipe> item) {
 
     }
-    public void clearList (List<recipe> list){
+    public void clearList (List<Recipe> list){
 
     }
 }

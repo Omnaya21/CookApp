@@ -1,11 +1,11 @@
 package com.ktchen.cookapp;
 
-public class ingredient {
+public class Ingredient {
     private String name;
     private float quantity;
     private String unit;
 
-    public ingredient(String name, float quantity, String unit) {
+    public Ingredient(String name, float quantity, String unit) {
         this.name = name;
         this.quantity = quantity;
         this.unit = unit;
