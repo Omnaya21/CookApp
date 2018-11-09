@@ -8,7 +8,6 @@ import android.view.WindowManager;
 /// this is our first screen we show to users
 // Another comment fro practice
 // Jess made a comment here.
-// Omar's comment
 // Made a comment here
 public class Splash extends AppCompatActivity {
 
