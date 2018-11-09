@@ -17,6 +17,13 @@ public class recipe {
        this.name=name;
     }
 
+    public recipe(String name, Image picture, List<ingredient> ingredients, List<String> directions) {
+        this.name = name;
+        this.picture = picture;
+        this.ingredients = ingredients;
+        this.directions = directions;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
