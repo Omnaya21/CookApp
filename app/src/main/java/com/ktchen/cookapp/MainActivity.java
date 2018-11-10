@@ -32,10 +32,12 @@ public class MainActivity extends AppCompatActivity {
         optionsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent i;
 
                 switch (position) {
                     case 0: // Recipes option
-
+                        i = new Intent(view.getContext(), RecipesActivity.class);
+                        startActivityForResult(i, 0);
                         break;
                     case 1: // Calendar option
 
@@ -44,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
 
                         break;
                     case 3: // Add New Recipe option
-                        Intent i = new Intent(view.getContext(), AddRecipe.class);
+                        i = new Intent(view.getContext(), AddRecipe.class);
                         startActivityForResult(i, 0);
                         break;
                     case 4: // Make a Plan option
