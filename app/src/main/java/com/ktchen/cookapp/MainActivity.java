@@ -13,7 +13,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    public static ListView optionsList;
+    public ListView optionsList;
     String[] options = new String[]{"Recipes", "Calendar", "Shopping List",
             "Add New Recipe", "Make a Plan"};
     public static ArrayAdapter<String> optionsAdapter;
@@ -57,7 +57,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        TextView label = findViewById(R.id.title);
-        label.setVisibility(View.INVISIBLE);
     }
 }

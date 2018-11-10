@@ -25,7 +25,8 @@
                 -->
         </activity>
         <activity android:name=".AddRecipe"
-                  android:parentActivityName=".MainActivity">
+                  android:parentActivityName=".MainActivity"
+                  android:label="@string/add_new_recipe">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />

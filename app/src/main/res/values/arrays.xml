@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="recipe_menu">Recipes, Calendar, Shopping List, Add New Recipe, Make a Plan
+    <string-array name="menu_options">Recipes, Calendar, Shopping List, Add New Recipe, Make a Plan
     </string-array>
 </resources>
