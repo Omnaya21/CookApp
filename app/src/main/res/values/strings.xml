@@ -1,5 +1,14 @@
 <resources>
-    <string name="app_name">CookApp</string>
+    <string name="app_name">Cook App</string>
     <string name="splash_desc">Initial Splash logo description</string>
     <string name="add_new_recipe">Add New Recipe</string>
+    <string name="button_save">Save</string>
+    <string name="button_Edit">Edit</string>
+    <string name="button_add">Add</string>
+    <string name="button_shopping">Shopping List</string>
+    <string name="button_make_plan">Make Plan</string>
+    <string name="hint_description">Description</string>
+    <string name="hint_ingredients">Ingredients</string>
+    <string name="hint_preparation">Preparation</string>
+    <string name="image_recipe">Recipe Image</string>
 </resources>

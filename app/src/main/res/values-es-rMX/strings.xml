@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Cook App</string>
+    <string name="splash_desc">Descripción de la ventana de inicio</string>
+    <string name="add_new_recipe">Agregar Nueva Receta</string>
+    <string name="button_save">Guardar</string>
+    <string name="button_Edit">Editar</string>
+    <string name="button_add">Agregar</string>
+    <string name="button_shopping">Lista de Compras</string>
+    <string name="button_make_plan">Crear Plan</string>
+    <string name="hint_description">Descripción</string>
+    <string name="hint_ingredients">Ingredientes</string>
+    <string name="hint_preparation">Preparación</string>
+    <string name="image_recipe">Recipe Image</string>
+</resources>
