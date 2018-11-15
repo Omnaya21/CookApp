@@ -81,4 +81,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <CheckBox
+        android:id="@+id/favoriteCheckBox"
+        android:layout_width="223dp"
+        android:layout_height="27dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/favorite_check"
+        app:layout_constraintBottom_toTopOf="@+id/saveButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/preparation"
+        android:onClick="onCheckboxClicked"/>
+
 </android.support.constraint.ConstraintLayout>
