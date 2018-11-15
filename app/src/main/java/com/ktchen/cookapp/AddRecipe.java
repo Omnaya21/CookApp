@@ -3,15 +3,18 @@ package com.ktchen.cookapp;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,6 +29,10 @@ public class AddRecipe extends AppCompatActivity {
     private static final int GALLERY = 1;
     private static final int CAMERA = 2;
     ImageView recipeImage;
+    private SharedPreferences mPreferences;
+    private SharedPreferences.Editor editor;
+    private CheckBox favoriteBox;
+    private final String checkBox = "favoriteCheckBox";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +40,39 @@ public class AddRecipe extends AppCompatActivity {
         setContentView(R.layout.activity_add_recipe);
 
         recipeImage = findViewById(R.id.recipeImage);
+        favoriteBox= findViewById(R.id.favoriteCheckBox);
         recipeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showPictureDialog(v);
             }
         });
+        mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        editor= mPreferences.edit();
+
+        checkSharedPreferences();
+
+
+    }
+
+public void onCheckboxClicked(View view){
+    if(favoriteBox.isChecked()) {
+        editor.putString(checkBox, "True");
+        editor.commit();
+    }
+    else{
+        editor.putString(checkBox, "False");
+        editor.commit();
+    }
+}
+
+    private void checkSharedPreferences(){
+        String favoriteCheckbox= mPreferences.getString(checkBox, "False");
+        if (favoriteCheckbox.equals("True")){
+            favoriteBox.setChecked(true);
+        }
+        else
+            favoriteBox.setChecked(false);
     }
 
     private void showPictureDialog(final View v) {
