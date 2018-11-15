@@ -11,4 +11,5 @@
     <string name="hint_ingredients">Ingredients</string>
     <string name="hint_preparation">Preparation</string>
     <string name="image_recipe">Recipe Image</string>
+    <string name="favorite_check">Make Favorite</string>
 </resources>
