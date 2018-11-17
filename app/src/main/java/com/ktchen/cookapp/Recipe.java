@@ -1,44 +1,56 @@
 package com.ktchen.cookapp;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
 import android.media.Image;
 import android.provider.CalendarContract;
+import android.support.annotation.NonNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity(tableName= "recipe_table")
 public class Recipe {
+    @PrimaryKey
+    @NonNull
+    private String title;
+    @ColumnInfo(name= "ingredients")
+    private List<Ingredient> ingredients =new ArrayList<Ingredient>();
+    @ColumnInfo(name= "directions")
+    private List<String> directions= new ArrayList<String>();
 
-    private String name;
-    private Image picture;
-    private List<Ingredient> ingredients;
-    private List<String> directions;
-    private List<CalendarContract.Reminders> reminders;
+   // private Image picture;
+   // private List<CalendarContract.Reminders> reminders;
 
     Recipe(String name){
-       this.name=name;
+       name=title;
     }
 
-    public Recipe(String name, Image picture, List<Ingredient> ingredients, List<String> directions) {
-        this.name = name;
-        this.picture = picture;
+    public Recipe(){;}
+
+    public Recipe(String name/*, Image picture*/, List<Ingredient> ingredients, List<String> directions) {
+        title = name;
+       // this.picture = picture;
         this.ingredients = ingredients;
         this.directions = directions;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String name) {
+        title = name;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public Image getPicture() {
-        return picture;
-    }
+   // public Image getPicture() {
+     //   return picture;
+    //}
 
-    public void setPicture(Image picture) {
-        this.picture = picture;
-    }
+   // public void setPicture(Image picture) {
+     //   this.picture = picture;
+    //}
 
     public List<Ingredient> getIngredients() {
         return ingredients;
@@ -56,13 +68,13 @@ public class Recipe {
         this.directions = directions;
     }
 
-    public List<CalendarContract.Reminders> getReminders() {
-        return reminders;
-    }
+    //public List<CalendarContract.Reminders> getReminders() {
+      //  return reminders;
+    //}
 
-    public void setReminders(List<CalendarContract.Reminders> reminders) {
-        this.reminders = reminders;
-    }
+    //public void setReminders(List<CalendarContract.Reminders> reminders) {
+      //  this.reminders = reminders;
+    //}
     public void addItem (List<Recipe> item) {
 
     }
@@ -72,4 +84,5 @@ public class Recipe {
     public void clearList (List<Recipe> list){
 
     }
+
 }
