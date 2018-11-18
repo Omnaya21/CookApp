@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+
+
 public class MainActivity extends AppCompatActivity {
     public ListView optionsList;
     String[] options = new String[]{"Recipes", "Calendar", "Shopping List",

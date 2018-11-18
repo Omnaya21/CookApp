@@ -5,10 +5,16 @@ public class Ingredient {
     private float quantity;
     private String unit;
 
-    public Ingredient(String name, float quantity, String unit) {
+    public Ingredient( float quantity, String unit,String name) {
         this.name = name;
         this.quantity = quantity;
         this.unit = unit;
+    }
+
+    public Ingredient(String name){
+        this.name=name;
+        quantity=0;
+        unit= " ";
     }
 
     public String getName() {

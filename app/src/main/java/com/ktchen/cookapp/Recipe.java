@@ -75,9 +75,7 @@ public class Recipe {
     //public void setReminders(List<CalendarContract.Reminders> reminders) {
       //  this.reminders = reminders;
     //}
-    public void addItem (List<Recipe> item) {
 
-    }
     public void removeItem (List<Recipe> item) {
 
     }
