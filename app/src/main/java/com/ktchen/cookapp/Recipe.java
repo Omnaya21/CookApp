@@ -84,5 +84,8 @@ public class Recipe {
     public void clearList (List<Recipe> list){
 
     }
+    public Recipe getRecipe(){
+        return this;
+    }
 
 }
