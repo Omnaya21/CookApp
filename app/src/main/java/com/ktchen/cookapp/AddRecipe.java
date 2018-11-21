@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -22,7 +23,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class AddRecipe extends AppCompatActivity {
     private static final String IMAGE_DIRECTORY = "/cookapp";
@@ -33,14 +36,22 @@ public class AddRecipe extends AppCompatActivity {
     private SharedPreferences.Editor editor;
     private CheckBox favoriteBox;
     private final String checkBox = "favoriteCheckBox";
+    EditText recipeTitle;
+    EditText ingredientsBox;
+    EditText directionsBox;
+    RecipeBook book = new RecipeBook();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
-
+        Log.i("ActivityInfo","AddRecipe created");
         recipeImage = findViewById(R.id.recipeImage);
         favoriteBox= findViewById(R.id.favoriteCheckBox);
+        recipeTitle = (EditText) findViewById(R.id.title);
+        ingredientsBox = (EditText) findViewById((R.id.ingredients));
+        directionsBox = (EditText) findViewById(R.id.preparation);
         recipeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -54,6 +65,19 @@ public class AddRecipe extends AppCompatActivity {
 
 
     }
+
+ public void onSaved(View view) {
+        String title= recipeTitle.getText().toString();
+        Ingredient ingredients= new Ingredient(ingredientsBox.getText().toString());
+        List<Ingredient> list= new ArrayList<Ingredient>();
+        List<String> directions=new ArrayList<String>();
+        list.add(ingredients);
+        String direction= directionsBox.getText().toString();
+        directions.add(direction);
+        Recipe newRecipe= new Recipe(title, list, directions);
+        book.addRecipe(newRecipe);
+
+ }
 
 public void onCheckboxClicked(View view){
     if(favoriteBox.isChecked()) {
@@ -131,6 +155,7 @@ public void onCheckboxClicked(View view){
                         Toast.makeText(AddRecipe.this, "Image saved.", Toast.LENGTH_SHORT).show();
                         recipeImage.setImageBitmap(bitmap);
                     } catch (IOException e) {
+                        Log.e("ExceptionThrown", "Error opening image");
                         e.printStackTrace();
                         Toast.makeText(AddRecipe.this, "Failed.", Toast.LENGTH_SHORT).show();
                     }
@@ -171,6 +196,7 @@ public void onCheckboxClicked(View view){
 
             return f.getAbsolutePath();
         } catch (IOException e) {
+            Log.e("ExceptionThrown", "Error Saving Images");
             e.printStackTrace();
         }
 
