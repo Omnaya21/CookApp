@@ -23,11 +23,11 @@ public class Recipe {
    // private Image picture;
    // private List<CalendarContract.Reminders> reminders;
 
-    Recipe(String name){
-       name=title;
+    public Recipe(String name){
+       title = name;
     }
 
-    public Recipe(){;}
+    public Recipe(){title = "New Recipe";}
 
     public Recipe(String name/*, Image picture*/, List<Ingredient> ingredients, List<String> directions) {
         title = name;
