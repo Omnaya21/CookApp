@@ -46,7 +46,7 @@ public class AddRecipe extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
-
+        Log.i("ActivityInfo","AddRecipe created");
         recipeImage = findViewById(R.id.recipeImage);
         favoriteBox= findViewById(R.id.favoriteCheckBox);
         recipeTitle = (EditText) findViewById(R.id.title);
@@ -155,6 +155,7 @@ public void onCheckboxClicked(View view){
                         Toast.makeText(AddRecipe.this, "Image saved.", Toast.LENGTH_SHORT).show();
                         recipeImage.setImageBitmap(bitmap);
                     } catch (IOException e) {
+                        Log.e("ExceptionThrown", "Error opening image");
                         e.printStackTrace();
                         Toast.makeText(AddRecipe.this, "Failed.", Toast.LENGTH_SHORT).show();
                     }
@@ -195,6 +196,7 @@ public void onCheckboxClicked(View view){
 
             return f.getAbsolutePath();
         } catch (IOException e) {
+            Log.e("ExceptionThrown", "Error Saving Images");
             e.printStackTrace();
         }
 
