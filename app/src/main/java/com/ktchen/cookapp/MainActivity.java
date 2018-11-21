@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.i("ActivityInfo","Main created");
-        // Add optins to ListView
+        // Add options to ListView
         optionsList = findViewById(R.id.option_menu_list);
         optionsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, options);
         optionsList.setAdapter(optionsAdapter);
