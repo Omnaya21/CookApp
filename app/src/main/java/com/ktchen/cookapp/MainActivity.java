@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     public ListView optionsList;
+    public CardView optionsCards;
     String[] options = new String[]{"Recipes", "Calendar", "Shopping List",
             "Add New Recipe", "Make a Plan"};
     public static ArrayAdapter<String> optionsAdapter;
@@ -56,11 +58,12 @@ public class MainActivity extends AppCompatActivity {
 
                         break;
                 }
-
-
-
             }
         });
+
+        // Add options to Card View
+        optionsCards = findViewById(R.id.option_menu_cardview);
+
 
     }
 }

@@ -12,4 +12,10 @@
     <string name="hint_preparation">Preparation</string>
     <string name="image_recipe">Recipe Image</string>
     <string name="favorite_check">Make Favorite</string>
+
+    <string name="menu_recipes">Recipes</string>
+    <string name="menu_calendar">Calendar</string>
+    <string name="menu_shopinglist">Shopping List</string>
+    <string name="menu_newrecipe">Add New Recipe</string>
+    <string name="menu_makeplan">Make a Plan</string>
 </resources>

@@ -10,10 +10,7 @@ import android.view.WindowManager;
 
 import java.util.Objects;
 
-/// this is our first screen we show to users
-// Another comment fro practice
-// Jess made a comment here.
-// Made a comment here
+/// This is our first screen we show to users
 public class SplashActivity extends AppCompatActivity {
 
     @Override
@@ -26,15 +23,6 @@ public class SplashActivity extends AppCompatActivity {
         //        WindowManager.LayoutParams.FLAG_FULLSCREEN); // Enable ful screen mode
         //setContentView(R.layout.activity_splash);
 
-
-        //new Handler().postDelayed(new Runnable() {
-        //    @Override
-        //    public void run() {
-        //        Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-        //        startActivity(intent);
-        //        finish();
-        //    }
-        //}, 2000);
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
