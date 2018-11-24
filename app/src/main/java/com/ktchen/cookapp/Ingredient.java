@@ -1,11 +1,15 @@
 package com.ktchen.cookapp;
 
-public class Ingredient {
+import java.io.Serializable;
+
+public class Ingredient implements Serializable {
     private String name;
     private float quantity;
     private String unit;
 
-    public Ingredient( float quantity, String unit,String name) {
+    public Ingredient( float quantity, String unit,String name)
+
+    {
         this.name = name;
         this.quantity = quantity;
         this.unit = unit;

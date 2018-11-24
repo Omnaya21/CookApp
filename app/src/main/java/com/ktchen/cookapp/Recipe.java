@@ -7,11 +7,12 @@ import android.media.Image;
 import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity(tableName= "recipe_table")
-public class Recipe {
+public class Recipe implements Serializable {
     @PrimaryKey
     @NonNull
     private String title;
