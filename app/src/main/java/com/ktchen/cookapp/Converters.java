@@ -31,7 +31,7 @@ public class Converters {
     List<String> ingredientList = new ArrayList<String>();
 
     for(int i=0; i< ingredients.size(); i++){
-        ingredientList.add(ingredients.get(i).convertIngredientToString());
+        ingredientList.add(ingredients.get(i).toString());
     }
 
     String json= gson.toJson(ingredientList);

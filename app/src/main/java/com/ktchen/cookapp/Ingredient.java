@@ -41,7 +41,7 @@ public class Ingredient {
         this.unit = unit;
     }
 
-    public String ToString() {
+    public String toString() {
         String ingredient = quantity + unit + name;
         return ingredient;
     }
