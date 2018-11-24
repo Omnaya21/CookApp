@@ -12,6 +12,7 @@ import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
@@ -40,8 +41,8 @@ public class AddRecipe extends AppCompatActivity {
     EditText ingredientsBox;
     EditText directionsBox;
     RecipeBook book = new RecipeBook();
-
-
+    List<Recipe> recipes= new ArrayList<Recipe>();
+    public static final String EXTRA_MESSAGE =  "com.ktchen.cookapp/extra";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,17 +68,23 @@ public class AddRecipe extends AppCompatActivity {
     }
 
  public void onSaved(View view) {
-        String title= recipeTitle.getText().toString();
-        Ingredient ingredients= new Ingredient(ingredientsBox.getText().toString());
-        List<Ingredient> list= new ArrayList<Ingredient>();
-        List<String> directions=new ArrayList<String>();
-        list.add(ingredients);
-        String direction= directionsBox.getText().toString();
-        directions.add(direction);
-        Recipe newRecipe= new Recipe(title, list, directions);
-        book.addRecipe(newRecipe);
+            String title = recipeTitle.getText().toString();
+            Ingredient ingredients = new Ingredient(ingredientsBox.getText().toString());
+            List<Ingredient> list = new ArrayList<Ingredient>();
+            List<String> directions = new ArrayList<String>();
+            list.add(ingredients);
+            String direction = directionsBox.getText().toString();
+            directions.add(direction);
+            Recipe newRecipe = new Recipe(title, list, directions);
 
- }
+            book.addRecipe(newRecipe);
+            recipes.addAll(book.getRecipeBook());
+            Intent intent= new Intent(this, RecipesActivity.class);
+            intent.putExtra(EXTRA_MESSAGE, book);
+            startActivity(intent);
+
+        }
+
 
 public void onCheckboxClicked(View view){
     if(favoriteBox.isChecked()) {

@@ -18,4 +18,7 @@
     <string name="menu_shopinglist">Shopping List</string>
     <string name="menu_newrecipe">Add New Recipe</string>
     <string name="menu_makeplan">Make a Plan</string>
+
+    <string name="empty_not_saved" translatable="false">Word not saved because it is empty.</string>
+
 </resources>
