@@ -13,8 +13,8 @@ import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder>{
 private List<Recipe> recipes= new ArrayList<Recipe>();
-public RecipeAdapter(RecipeBook book){
-    recipes= book.getRecipeBook();
+public RecipeAdapter(List<Recipe> recipes){
+    this.recipes= recipes;
 }
 
 public class ViewHolder extends RecyclerView.ViewHolder{
@@ -48,7 +48,9 @@ public class ViewHolder extends RecyclerView.ViewHolder{
 
     @Override
     public int getItemCount() {
-    return recipes.size();
+    if(recipes!=null)
+       return recipes.size();
+    else return 0;
     }
 
 }

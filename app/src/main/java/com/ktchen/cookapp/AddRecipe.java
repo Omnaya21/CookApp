@@ -20,10 +20,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.ktchen.cookapp.database.DatabaseHelper;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -43,6 +46,7 @@ public class AddRecipe extends AppCompatActivity {
     RecipeBook book = new RecipeBook();
     List<Recipe> recipes= new ArrayList<Recipe>();
     public static final String EXTRA_MESSAGE =  "com.ktchen.cookapp/extra";
+    private DatabaseHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +57,8 @@ public class AddRecipe extends AppCompatActivity {
         recipeTitle = (EditText) findViewById(R.id.title);
         ingredientsBox = (EditText) findViewById((R.id.ingredients));
         directionsBox = (EditText) findViewById(R.id.preparation);
+        db = new DatabaseHelper(this);
+        recipes.addAll(db.getAllRecipes());
         recipeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,18 +75,14 @@ public class AddRecipe extends AppCompatActivity {
 
  public void onSaved(View view) {
             String title = recipeTitle.getText().toString();
-            Ingredient ingredients = new Ingredient(ingredientsBox.getText().toString());
-            List<Ingredient> list = new ArrayList<Ingredient>();
-            List<String> directions = new ArrayList<String>();
-            list.add(ingredients);
+            String ingredients = ingredientsBox.getText().toString();
             String direction = directionsBox.getText().toString();
-            directions.add(direction);
-            Recipe newRecipe = new Recipe(title, list, directions);
-
-            book.addRecipe(newRecipe);
+            Recipe newRecipe = new Recipe(title, ingredients, direction);
+            createRecipe(newRecipe);
+            recipes.add(newRecipe);
             recipes.addAll(book.getRecipeBook());
             Intent intent= new Intent(this, RecipesActivity.class);
-            intent.putExtra(EXTRA_MESSAGE, book);
+            intent.putExtra(EXTRA_MESSAGE, newRecipe);
             startActivity(intent);
 
         }
@@ -96,7 +98,20 @@ public void onCheckboxClicked(View view){
         editor.commit();
     }
 }
+    private void createRecipe(Recipe recipe) {
+        // inserting note in db and getting
+        // newly inserted note id
+        long id = db.insertRecipe(recipe);
+        Log.i("database", "added item");
+        // get the newly inserted note from db
+        Recipe r = db.getRecipe(id);
+        Log.i("database", "retrieved item");
+        if (r != null) {
+            // adding new note to array list at 0 position
+            recipes.add(0, r);
 
+        }
+    }
     private void checkSharedPreferences(){
         String favoriteCheckbox= mPreferences.getString(checkBox, "False");
         if (favoriteCheckbox.equals("True")){
