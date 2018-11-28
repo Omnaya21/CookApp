@@ -30,7 +30,8 @@ public class RecipesActivity extends AppCompatActivity {
         recipes.add( new Recipe("test1"));
         recipes.add( new Recipe("test2"));
         recipes.add( new Recipe("test3"));
-        recipes.add((Recipe) getIntent().getExtras().getSerializable(EXTRA_MESSAGE));
+        if (intent.getExtras()!=null)
+           recipes.add((Recipe) getIntent().getExtras().getSerializable(EXTRA_MESSAGE));
 
         setContentView(R.layout.activity_recipes);
         Log.i("ActivityInfo","RecipeActivity created");
