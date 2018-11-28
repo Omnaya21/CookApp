@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-//@Entity(tableName= "recipe_table")
+
 public class Recipe implements Serializable {
   //  @PrimaryKey
    // @NonNull
@@ -33,14 +33,6 @@ public class Recipe implements Serializable {
     public Recipe(){title = "New Recipe"; id=id; id++;}
 
     public Recipe(String title, String ingredient, String directions, int id){
-        this.title=title;
-        this.ingredients=ingredient;
-        this.directions= directions;
-        this.id= id;
-
-    }
-
-    public Recipe(String title, String ingredient, String directons){
         this.title=title;
         this.ingredients=ingredient;
         this.directions= directions;
