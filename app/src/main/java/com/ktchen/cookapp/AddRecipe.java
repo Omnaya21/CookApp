@@ -147,6 +147,10 @@ public void onCheckboxClicked(View view){
 
     }
 
+    /**
+     * Shows a dialog to allow users select an image to use on the app.
+     * @param v
+     */
     public void pickImageFromGallery(View v) {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
@@ -159,6 +163,12 @@ public void onCheckboxClicked(View view){
         startActivityForResult(cameraIntent, CAMERA);
     }
 
+    /**
+     * After user selected an image or took a picture, now it's time to show that picture.
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -193,6 +203,11 @@ public void onCheckboxClicked(View view){
         }
     }
 
+    /**
+     * Saves the image locally for later use.
+     * @param bitmap
+     * @return the image path.
+     */
     public String saveImage(Bitmap bitmap) {
         ByteArrayOutputStream bytes = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);

@@ -17,6 +17,10 @@ import java.util.List;
 
 import static com.ktchen.cookapp.AddRecipe.EXTRA_MESSAGE;
 
+/**
+ * RecipesActivity shows all the recipes in a card view so user can select it
+ * or do something with a recipe.
+ */
 public class RecipesActivity extends AppCompatActivity {
     private List<Recipe> recipes = new ArrayList<Recipe>();
     RecipeBook book= new RecipeBook();

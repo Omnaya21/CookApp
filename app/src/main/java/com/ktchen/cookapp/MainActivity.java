@@ -15,7 +15,12 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 
-
+/**
+ * MainActivity is the first screen where we can interact and select what to do.
+ *
+ * @author Omar
+ * @version 1.0
+ */
 public class MainActivity extends AppCompatActivity {
     public ListView optionsList;
     public CardView optionsCards;
