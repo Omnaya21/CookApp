@@ -12,19 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
-@Entity(tableName= "recipe_table")
-/**
- *
- */
 public class Recipe implements Serializable {
-    @PrimaryKey
-    @NonNull
+  //  @PrimaryKey
+   // @NonNull
     private String title;
-    @ColumnInfo(name= "ingredients")
-    private List<Ingredient> ingredients =new ArrayList<Ingredient>();
-    @ColumnInfo(name= "directions")
-    private List<String> directions= new ArrayList<String>();
+    private String ingredients= null;
+   // @ColumnInfo(name= "ingredients")
+   // private List<Ingredient> ingredients =new ArrayList<Ingredient>();
+   // @ColumnInfo(name= "directions")
+    private String directions= null;
+    private int id=0;
 
    // private Image picture;
    // private List<CalendarContract.Reminders> reminders;
@@ -33,20 +30,18 @@ public class Recipe implements Serializable {
        title = name;
     }
 
-    public Recipe(){title = "New Recipe";}
+    public Recipe(){title = "New Recipe"; id=id; id++;}
 
-    /**
-     * Creates
-     * @param name
-     * @param ingredients
-     * @param directions
-     */
-    public Recipe(String name/*, Image picture*/, List<Ingredient> ingredients, List<String> directions) {
-        title = name;
-       // this.picture = picture;
-        this.ingredients = ingredients;
-        this.directions = directions;
+    public Recipe(String title, String ingredient, String directions, int id){
+        this.title=title;
+        this.ingredients=ingredient;
+        this.directions= directions;
+        this.id= id;
+        id++;
     }
+
+    public void setID(int id) {this.id=id; }
+    public int getID() {return id;}
 
     public void setTitle(String name) {
         title = name;
@@ -64,19 +59,19 @@ public class Recipe implements Serializable {
      //   this.picture = picture;
     //}
 
-    public List<Ingredient> getIngredients() {
+    public String getIngredients() {
         return ingredients;
     }
 
-    public void setIngredients(List<Ingredient> ingredients) {
+    public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
     }
 
-    public List<String> getDirections() {
+    public String getDirections() {
         return directions;
     }
 
-    public void setDirections(List<String> directions) {
+    public void setDirections(String directions) {
         this.directions = directions;
     }
 
@@ -87,6 +82,7 @@ public class Recipe implements Serializable {
     //public void setReminders(List<CalendarContract.Reminders> reminders) {
       //  this.reminders = reminders;
     //}
+
 
     public void removeItem (List<Recipe> item) {
 
