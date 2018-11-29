@@ -50,7 +50,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivityForResult(i, 0);
                         break;
                     case 1: // Calendar option
-
+                        i = new Intent(view.getContext(), ViewCalendar.class);
+                        startActivityForResult(i,0);
                         break;
                     case 2: // Shopping List option
 
@@ -60,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
                         startActivityForResult(i, 0);
                         break;
                     case 4: // Make a Plan option
-
                         break;
+
                 }
             }
         });

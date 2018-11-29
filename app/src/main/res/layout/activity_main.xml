@@ -13,7 +13,7 @@
         android:layout_height="248dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginEnd="7dp"
         android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/option_menu_cardview"
         app:layout_constraintEnd_toEndOf="parent"
