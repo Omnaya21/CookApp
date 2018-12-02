@@ -1,96 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="10dp"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
     tools:context=".AddRecipe">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <TextView
+        android:text="Recipe Name:"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <EditText
         android:id="@+id/title"
         android:layout_width="346dp"
         android:layout_height="46dp"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:ems="10"
+        android:inputType="text"
+        android:layout_gravity="center_horizontal"
         android:hint="@string/hint_description"
-        android:inputType="none|textPersonName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.272"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         tools:ignore="Autofill,username" />
 
     <ImageView
         android:id="@+id/recipeImage"
         android:layout_width="120dp"
         android:layout_height="120dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerCrop"
         android:contentDescription="@string/image_recipe"
-        app:layout_constraintBottom_toTopOf="@+id/ingredients"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"
         app:srcCompat="@drawable/logo96" />
+
+    <TextView
+        android:text="Ingredients:"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <EditText
         android:id="@+id/ingredients"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:ems="10"
         android:hint="@string/hint_ingredients"
         android:inputType="textMultiLine"
         android:scrollbars="horizontal|vertical"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recipeImage"
+        android:scrollHorizontally="true"
+        android:isScrollContainer="true"
         tools:ignore="Autofill" />
+
+    <TextView
+        android:text="Directions:"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
     <EditText
         android:id="@+id/preparation"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:ems="10"
         android:hint="@string/hint_preparation"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/saveButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ingredients"
         tools:ignore="Autofill" />
 
     <Button
         android:id="@+id/saveButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="13dp"
         android:onClick="onSaved"
         android:text="@string/button_save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+         />
 
     <CheckBox
         android:id="@+id/favoriteCheckBox"
-        android:layout_width="223dp"
+        android:layout_width="match_parent"
         android:layout_height="27dp"
         android:layout_marginBottom="8dp"
         android:text="@string/favorite_check"
-        app:layout_constraintBottom_toTopOf="@+id/saveButton"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/preparation"
         android:onClick="onCheckboxClicked"/>
 
-</android.support.constraint.ConstraintLayout>
+    </LinearLayout>
+</ScrollView>
