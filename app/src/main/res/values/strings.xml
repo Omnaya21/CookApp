@@ -15,7 +15,7 @@
 
     <string name="menu_recipes">Recipes</string>
     <string name="menu_calendar">Calendar</string>
-    <string name="menu_shopinglist">Shopping List</string>
+    <string name="menu_shoppinglist">Shopping List</string>
     <string name="menu_newrecipe">Add New Recipe</string>
     <string name="menu_makeplan">Make a Plan</string>
 

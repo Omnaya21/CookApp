@@ -15,7 +15,7 @@
     <string name="favorite_check">favorito</string>
     <string name="menu_recipes">Recetas</string>
     <string name="menu_calendar">Calendario</string>
-    <string name="menu_shopinglist">Lista de Compras</string>
+    <string name="menu_shoppinglist">Lista de Compras</string>
     <string name="menu_newrecipe">Agregar Receta</string>
     <string name="menu_makeplan">Crear Plan</string>
 </resources>

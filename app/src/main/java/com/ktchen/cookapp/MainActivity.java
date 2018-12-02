@@ -21,55 +21,63 @@ import java.util.ArrayList;
  * @author Omar
  * @version 1.0
  */
-public class MainActivity extends AppCompatActivity {
-    public ListView optionsList;
-    public CardView optionsCards;
-    String[] options = new String[]{"Recipes", "Calendar", "Shopping List",
-            "Add New Recipe", "Make a Plan"};
-    public static ArrayAdapter<String> optionsAdapter;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+    private CardView recipeCard;
+    private CardView calendarCard;
+    private CardView planCard;
+    private CardView shoppingCard;
+    private CardView addCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.i("ActivityInfo","Main created");
-        // Add options to ListView
-        optionsList = findViewById(R.id.option_menu_list);
-        optionsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, options);
-        optionsList.setAdapter(optionsAdapter);
 
-        //Add onClick events to list options
-        optionsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent i;
+        /// Define cards
+        recipeCard = (CardView) findViewById(R.id.recipes_card);
+        calendarCard = (CardView) findViewById(R.id.calendar_card);
+        planCard = (CardView) findViewById(R.id.create_plan_card);
+        shoppingCard = (CardView) findViewById(R.id.shopping_list_card);
+        addCard = (CardView) findViewById(R.id.add_recipe_card);
 
-                switch (position) {
-                    case 0: // Recipes option
-                        i = new Intent(view.getContext(), RecipesActivity.class);
-                        startActivityForResult(i, 0);
-                        break;
-                    case 1: // Calendar option
-                        i = new Intent(view.getContext(), ViewCalendar.class);
-                        startActivityForResult(i,0);
-                        break;
-                    case 2: // Shopping List option
+        /// Add onclick event listener
+        recipeCard.setOnClickListener(this);
+        calendarCard.setOnClickListener(this);
+        planCard.setOnClickListener(this);
+        shoppingCard.setOnClickListener(this);
+        addCard.setOnClickListener(this);
+    }
 
-                        break;
-                    case 3: // Add New Recipe option
-                        i = new Intent(view.getContext(), AddRecipe.class);
-                        startActivityForResult(i, 0);
-                        break;
-                    case 4: // Make a Plan option
-                        break;
+    @Override
+    public void onClick(View v) {
+        Intent i;
 
-                }
-            }
-        });
+        switch (v.getId()) {
+            case R.id.recipes_card: // Recipes option
+                i = new Intent(v.getContext(), RecipesActivity.class);
+                startActivityForResult(i, 0);
+                break;
 
-        // Add options to Card View
-        optionsCards = findViewById(R.id.option_menu_cardview);
+            case R.id.calendar_card: // Calendar option
+                i = new Intent(v.getContext(), ViewCalendar.class);
+                startActivityForResult(i,0);
+                break;
 
+            case R.id.create_plan_card: // Make a Plan option
+                i = new Intent(v.getContext(), CreatePlanActivity.class);
+                startActivityForResult(i, 0);
+                break;
 
+            case R.id.shopping_list_card: // Shopping List option
+                i = new Intent(v.getContext(), ShoppingListActivity.class);
+                startActivityForResult(i, 0);
+                break;
+
+            case R.id.add_recipe_card: // Add New Recipe option
+                i = new Intent(v.getContext(), AddRecipe.class);
+                startActivityForResult(i, 0);
+                break;
+        }
     }
 }
