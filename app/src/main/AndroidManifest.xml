@@ -56,7 +56,14 @@
         </activity>
         <activity android:name=".ViewCalendar" />
         <activity android:name=".ShoppingListActivity" />
-        <activity android:name=".CreatePlanActivity"></activity>
+        <activity
+            android:name=".CreatePlanActivity"
+            android:label="Create Plan"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android:support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
     </application>
 
 </manifest>
