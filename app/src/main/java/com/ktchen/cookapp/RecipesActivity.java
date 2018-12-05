@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -34,6 +35,9 @@ public class RecipesActivity extends AppCompatActivity {
         recipes.add( new Recipe("test1"));
         recipes.add( new Recipe("test2"));
         recipes.add( new Recipe("test3"));
+        recipes.add( new Recipe("test4"));
+        recipes.add( new Recipe("test5"));
+        recipes.add( new Recipe("test6"));
         if (intent.getExtras()!=null)
            recipes.add((Recipe) getIntent().getExtras().getSerializable(EXTRA_MESSAGE));
 
@@ -42,7 +46,7 @@ public class RecipesActivity extends AppCompatActivity {
         setTitle("Recipes");
         RecyclerView recyclerView= findViewById(R.id.recipe_view);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(this,3));
             }
         };
 
