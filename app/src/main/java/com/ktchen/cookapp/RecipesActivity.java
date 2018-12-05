@@ -11,6 +11,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -22,17 +23,18 @@ import static com.ktchen.cookapp.AddRecipe.EXTRA_MESSAGE;
  * RecipesActivity shows all the recipes in a card view so user can select it
  * or do something with a recipe.
  */
-public class RecipesActivity extends AppCompatActivity {
+public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.ItemClickListener{
     private List<Recipe> recipes = new ArrayList<Recipe>();
     RecipeBook book= new RecipeBook();
-    RecipeAdapter adapter =new RecipeAdapter(recipes);
-    @Override
+    RecipeAdapter adapter;
 
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent= getIntent();
 
-        recipes.add( new Recipe("test1"));
+
+        recipes.add( new Recipe("test1","lots of stuff","bake and cook"));
         recipes.add( new Recipe("test2"));
         recipes.add( new Recipe("test3"));
         recipes.add( new Recipe("test4"));
@@ -45,9 +47,21 @@ public class RecipesActivity extends AppCompatActivity {
         Log.i("ActivityInfo","RecipeActivity created");
         setTitle("Recipes");
         RecyclerView recyclerView= findViewById(R.id.recipe_view);
-        recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new GridLayoutManager(this,3));
+        adapter = new RecipeAdapter(this,recipes);
+        adapter.setClickListener(this);
+        recyclerView.setAdapter(adapter);
             }
-        };
+
+    @Override
+    public void onItemClick(View view, int position) {
+        Log.i("TAG", "You clicked number " + adapter.getItem(position) + ", which is at cell position " + position);
+        Intent intent= new Intent(this, AddRecipe.class);
+        intent.putExtra(EXTRA_MESSAGE, adapter.getItem(position));
+        startActivity(intent);
+    }
+
+    };
+
 
 

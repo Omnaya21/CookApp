@@ -57,6 +57,14 @@ public class AddRecipe extends AppCompatActivity {
         recipeTitle = (EditText) findViewById(R.id.title);
         ingredientsBox = (EditText) findViewById((R.id.ingredients));
         directionsBox = (EditText) findViewById(R.id.preparation);
+        Intent intent= getIntent();
+        if (intent.getExtras()!=null) {
+            Bundle extras = intent.getExtras();
+            Recipe recipe= (Recipe) extras.getSerializable(EXTRA_MESSAGE);
+            recipeTitle.setText(recipe.getTitle());
+            ingredientsBox.setText(recipe.getIngredients());
+            directionsBox.setText(recipe.getDirections());
+        }
         db = new DatabaseHelper(this);
         recipes.addAll(db.getAllRecipes());
         recipeImage.setOnClickListener(new View.OnClickListener() {
