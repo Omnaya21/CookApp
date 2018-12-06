@@ -12,15 +12,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder>{
-private List<Recipe> recipes= new ArrayList<Recipe>();
-private LayoutInflater mInflater;
-private ItemClickListener mClickListener;
+    private List<Recipe> recipes= new ArrayList<Recipe>();
+    private LayoutInflater mInflater;
+    private ItemClickListener mClickListener;
 
 
     public RecipeAdapter(Context context, List<Recipe> recipes){
         this.mInflater = LayoutInflater.from(context);
         this.recipes= recipes;
-
     }
 
     @Override
