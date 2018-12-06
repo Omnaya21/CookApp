@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.ktchen.cookapp.database.DatabaseHelper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,21 +29,17 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
     private List<Recipe> recipes = new ArrayList<Recipe>();
     RecipeBook book= new RecipeBook();
     RecipeAdapter adapter;
+    private DatabaseHelper db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        db = DatabaseHelper.getInstance(this);
         Intent intent= getIntent();
+        recipes.addAll(db.getAllRecipes());
 
-
-        recipes.add( new Recipe("test1","lots of stuff","bake and cook"));
-        recipes.add( new Recipe("test2"));
-        recipes.add( new Recipe("test3"));
-        recipes.add( new Recipe("test4"));
-        recipes.add( new Recipe("test5"));
-        recipes.add( new Recipe("test6"));
-        if (intent.getExtras()!=null)
-           recipes.add((Recipe) getIntent().getExtras().getSerializable(EXTRA_MESSAGE));
+      //  if (intent.getExtras()!=null)
+      //     recipes.add((Recipe) getIntent().getExtras().getSerializable(EXTRA_MESSAGE));
 
         setContentView(R.layout.activity_recipes);
         Log.i("ActivityInfo","RecipeActivity created");

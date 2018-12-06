@@ -21,7 +21,7 @@ public class Recipe implements Serializable {
    // private List<Ingredient> ingredients =new ArrayList<Ingredient>();
    // @ColumnInfo(name= "directions")
     private String directions= null;
-    private int id=0;
+    private long id=0;
 
    // private Image picture;
    // private List<CalendarContract.Reminders> reminders;
@@ -30,25 +30,23 @@ public class Recipe implements Serializable {
        title = name;
     }
 
-    public Recipe(){title = "New Recipe"; id=id; id++;}
+    public Recipe(){title = "New Recipe";}
 
     public Recipe(String title, String ingredient, String directions){
         this.title=title;
         this.ingredients=ingredient;
         this.directions= directions;
-        this.id= id;
-        id++;
     }
+
     public Recipe(String title, String ingredient, String directions, int id){
         this.title=title;
         this.ingredients=ingredient;
         this.directions= directions;
         this.id= id;
-        id++;
     }
 
-    public void setID(int id) {this.id=id; }
-    public int getID() {return id;}
+    public void setID(long id) {this.id=id; }
+    public long getID() {return id;}
 
     public void setTitle(String name) {
         title = name;
@@ -91,12 +89,6 @@ public class Recipe implements Serializable {
     //}
 
 
-    public void removeItem (List<Recipe> item) {
-
-    }
-    public void clearList (List<Recipe> list){
-
-    }
     public Recipe getRecipe(){
         return this;
     }

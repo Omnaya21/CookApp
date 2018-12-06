@@ -43,7 +43,6 @@ public class AddRecipe extends AppCompatActivity {
     EditText recipeTitle;
     EditText ingredientsBox;
     EditText directionsBox;
-    RecipeBook book = new RecipeBook();
     List<Recipe> recipes= new ArrayList<Recipe>();
     public static final String EXTRA_MESSAGE =  "com.ktchen.cookapp/extra";
     private DatabaseHelper db;
@@ -52,11 +51,13 @@ public class AddRecipe extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
         Log.i("ActivityInfo","AddRecipe created");
+        db = DatabaseHelper.getInstance(this);
         recipeImage = findViewById(R.id.recipeImage);
         favoriteBox= findViewById(R.id.favoriteCheckBox);
         recipeTitle = (EditText) findViewById(R.id.title);
         ingredientsBox = (EditText) findViewById((R.id.ingredients));
         directionsBox = (EditText) findViewById(R.id.preparation);
+        recipes.addAll(db.getAllRecipes());
         Intent intent= getIntent();
         if (intent.getExtras()!=null) {
             Bundle extras = intent.getExtras();
@@ -65,8 +66,8 @@ public class AddRecipe extends AppCompatActivity {
             ingredientsBox.setText(recipe.getIngredients());
             directionsBox.setText(recipe.getDirections());
         }
-        db = new DatabaseHelper(this);
-        recipes.addAll(db.getAllRecipes());
+
+
         recipeImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,11 +87,12 @@ public class AddRecipe extends AppCompatActivity {
             String ingredients = ingredientsBox.getText().toString();
             String direction = directionsBox.getText().toString();
             Recipe newRecipe = new Recipe(title, ingredients, direction);
-            createRecipe(newRecipe);
+            long id = db.insertRecipe(newRecipe);
+            newRecipe.setID(id);
             recipes.add(newRecipe);
-            recipes.addAll(book.getRecipeBook());
+
             Intent intent= new Intent(this, RecipesActivity.class);
-            intent.putExtra(EXTRA_MESSAGE, newRecipe);
+         //   intent.putExtra(EXTRA_MESSAGE, newRecipe);
             startActivity(intent);
 
         }
