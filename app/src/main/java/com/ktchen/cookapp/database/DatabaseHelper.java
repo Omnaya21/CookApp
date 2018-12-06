@@ -28,8 +28,23 @@ import static com.ktchen.cookapp.database.model.recipeTable.TABLE_NAME;
 public class DatabaseHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION =3;
     private static final String DATABASE_NAME = "recipes_db";
+    private static DatabaseHelper sInstance = null;
 
-    public DatabaseHelper(Context context) {
+    /**
+     * Checks if there is an existing database, and if not creates it, else
+     * returns the instance of it.
+     * @param context
+     * @return DatabaseHelper
+     */
+    public static synchronized DatabaseHelper getInstance(Context context) {
+        // Use the application context, which will ensure that you
+        // don't accidentally leak an Activity's context.
+        if (sInstance == null) {
+            sInstance = new DatabaseHelper(context.getApplicationContext());
+        }
+        return sInstance;
+    }
+    private DatabaseHelper(Context context) {
         super(context, DATABASE_NAME,null,DATABASE_VERSION);
 
     }
