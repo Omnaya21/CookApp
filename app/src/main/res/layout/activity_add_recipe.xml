@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
@@ -15,6 +15,7 @@
 
     <TextView
         android:text="Recipe Name:"
+        android:textSize="16sp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_width="match_parent"
@@ -22,18 +23,22 @@
 
     <EditText
         android:id="@+id/title"
-        android:layout_width="346dp"
+        android:layout_width="match_parent"
         android:layout_height="46dp"
         android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:paddingLeft="5dp"
+        android:background="@drawable/edit_text_style"
         android:inputType="text"
         android:layout_gravity="center_horizontal"
-        android:hint="@string/hint_description"
         tools:ignore="Autofill,username" />
 
     <ImageView
         android:id="@+id/recipeImage"
         android:layout_width="120dp"
         android:layout_height="120dp"
+        android:layout_marginTop="16dp"
         android:layout_gravity="center_horizontal"
         android:scaleType="centerCrop"
         android:contentDescription="@string/image_recipe"
@@ -41,6 +46,7 @@
 
     <TextView
         android:text="Ingredients:"
+        android:textSize="16sp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_width="match_parent"
@@ -49,19 +55,15 @@
     <EditText
         android:id="@+id/ingredients"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:hint="@string/hint_ingredients"
-        android:inputType="textMultiLine"
-        android:scrollbars="horizontal|vertical"
-        android:scrollHorizontally="true"
-        android:isScrollContainer="true"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:padding="5dp"
+        android:background="@drawable/edit_text_style"
         tools:ignore="Autofill" />
 
     <TextView
         android:text="Directions:"
+        android:textSize="16sp"
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_width="match_parent"
@@ -70,13 +72,10 @@
     <EditText
         android:id="@+id/preparation"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:hint="@string/hint_preparation"
-        android:inputType="textMultiLine"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:padding="5dp"
+        android:background="@drawable/edit_text_style"
         app:layout_constraintTop_toBottomOf="@+id/ingredients"
         tools:ignore="Autofill" />
 
@@ -98,4 +97,4 @@
         android:onClick="onCheckboxClicked"/>
 
     </LinearLayout>
-</ScrollView>
+</android.support.v4.widget.NestedScrollView>

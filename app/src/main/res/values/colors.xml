@@ -4,11 +4,6 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
-    <!--
-    <color name=""></color>
-    <color name=""></color>
-    <color name=""></color>
-    <color name=""></color>
-    <color name=""></color> -->
     <color name="background_color">#fcfcfc</color>
+    <color name="border_color">#2e998e</color>
 </resources>

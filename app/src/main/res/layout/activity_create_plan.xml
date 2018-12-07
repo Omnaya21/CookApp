@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:gravity="center"
     android:background="@drawable/home_background"
     android:accessibilityPaneTitle="Create plan"
@@ -24,13 +24,19 @@
         android:layout_height="wrap_content" />
 
     <EditText
+        android:id="@+id/input_days"
         android:hint="Number of days to plan"
+        android:inputType="number"
+        android:digits="1234567890"
+        android:maxLength="2"
         android:layout_margin="32dp"
         android:textAlignment="center"
+        android:background="@drawable/edit_text_style"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <Button
+        android:id="@+id/create_plan_button"
         android:text="Create"
         android:padding="10dp"
         android:layout_gravity="center_horizontal"

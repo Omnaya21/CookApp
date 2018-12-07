@@ -1,5 +1,7 @@
 package com.ktchen.cookapp;
 
+import android.content.DialogInterface;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +9,10 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class ShoppingListActivity extends AppCompatActivity {
 
@@ -32,14 +38,28 @@ public class ShoppingListActivity extends AppCompatActivity {
                 "Cinnamon"
         };
 
-        ArrayAdapter<String> adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-                android.R.id.text1, ingredients);
+        final List<String> ingredients_list = new ArrayList<String>(Arrays.asList(ingredients));
+        final ArrayAdapter<String> adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+                 ingredients_list);
         shoppingList.setAdapter(adapter);
         shoppingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String itemValue = (String) shoppingList.getItemAtPosition(position);
-                Toast.makeText(ShoppingListActivity.this, itemValue, Toast.LENGTH_SHORT).show();
+            public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+                final String itemValue = (String) shoppingList.getItemAtPosition(position);
+
+                AlertDialog.Builder dialog = new AlertDialog.Builder(ShoppingListActivity.this);
+                dialog.setTitle("Delete?")
+                    .setMessage("Are you sure you want to delete " + itemValue)
+                    .setNegativeButton("Cancel", null)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogInterface, int which) {
+                            /// Remove item from listview
+                            ingredients_list.remove(position);
+                            adapter.notifyDataSetChanged();
+                        }
+                })
+                .setIcon(R.drawable.ic_dialog_alert)
+                .show();
             }
         });
     }
