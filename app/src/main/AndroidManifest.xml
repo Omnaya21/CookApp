@@ -26,6 +26,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MainActivity"
             android:theme="@style/HomeTheme">
@@ -38,6 +39,7 @@
                 android:value=".SplashActivity" />
             -->
         </activity>
+
         <activity
             android:name=".AddRecipe"
             android:label="@string/add_new_recipe"
@@ -46,6 +48,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
         <activity
             android:name=".RecipesActivity"
             android:label="Recipes"
@@ -54,8 +57,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
         <activity android:name=".ViewCalendar" />
-        <activity android:name=".ShoppingListActivity" />
+
+        <activity
+            android:name=".ShoppingListActivity"
+            android:parentActivityName=".MainActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
         <activity
             android:name=".CreatePlanActivity"
             android:label="Create Plan"
@@ -64,6 +77,7 @@
                 android:name="android:support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
+
         <activity android:name=".CookBookActivity"></activity>
     </application>
 

@@ -9,5 +9,9 @@ public class ShoppingListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
+        setTitle("Shopping List");
+
+        /// Before showing the list we have to search into our meal plan
+        /// and grab the ingredients we need to show
     }
 }
