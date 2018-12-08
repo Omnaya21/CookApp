@@ -35,7 +35,11 @@ public class ShoppingListActivity extends AppCompatActivity {
                 "Oil",
                 "Flour",
                 "Jello",
-                "Cinnamon"
+                "Cinnamon",
+                "Cookies",
+                "Mint",
+                "Sugar",
+                "Apples"
         };
 
         final List<String> ingredients_list = new ArrayList<String>(Arrays.asList(ingredients));
@@ -51,7 +55,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                 dialog.setTitle("Delete?")
                     .setMessage("Are you sure you want to delete " + itemValue)
                     .setNegativeButton("Cancel", null)
-                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialogInterface, int which) {
                             /// Remove item from listview
                             ingredients_list.remove(position);
