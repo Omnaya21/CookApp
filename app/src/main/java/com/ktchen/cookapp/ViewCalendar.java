@@ -1,6 +1,8 @@
 package com.ktchen.cookapp;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.CalendarContract;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,6 +14,7 @@ import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
 
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class ViewCalendar extends AppCompatActivity {
@@ -29,6 +32,20 @@ public class ViewCalendar extends AppCompatActivity {
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
                 String date= month+1 + "/"+dayOfMonth + "/"+ year;
                 Log.i(TAG, "date selected is "+ date);
+
+                Intent calIntent = new Intent(Intent.ACTION_INSERT);
+                calIntent.setData(CalendarContract.Events.CONTENT_URI);
+                calIntent.setType("vnd.android.cursor.item/event");
+                calIntent.putExtra(CalendarContract.Events.TITLE, "My Dinner Plan");
+
+
+                GregorianCalendar calDate = new GregorianCalendar(year, month, dayOfMonth);
+                calIntent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                        calDate.getTimeInMillis());
+                calIntent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
+                        calDate.getTimeInMillis());
+
+                startActivity(calIntent);
             }
         });
 
