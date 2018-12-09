@@ -34,8 +34,7 @@ public class ViewCalendar extends AppCompatActivity {
                 Log.i(TAG, "date selected is "+ date);
 
                 Intent calIntent = new Intent(Intent.ACTION_INSERT);
-                calIntent.setData(CalendarContract.Events.CONTENT_URI);
-                calIntent.setType("vnd.android.cursor.item/event");
+                calIntent.setDataAndType(CalendarContract.Events.CONTENT_URI,"vnd.android.cursor.item/event" );
                 calIntent.putExtra(CalendarContract.Events.TITLE, "My Dinner Plan");
 
 
