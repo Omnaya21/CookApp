@@ -14,6 +14,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This class handles the Shopping List functionality.
+ */
 public class ShoppingListActivity extends AppCompatActivity {
 
     @Override

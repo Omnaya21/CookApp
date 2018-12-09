@@ -7,16 +7,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.CalendarView;
-import android.widget.Toast;
-
-
-import com.alamkanak.weekview.MonthLoader;
-import com.alamkanak.weekview.WeekView;
-import com.alamkanak.weekview.WeekViewEvent;
-
 import java.util.GregorianCalendar;
-import java.util.List;
 
+/**
+ * This class runs the calendar functionality.  Sends an intent with selected date to phone's calendar app.
+ */
 public class ViewCalendar extends AppCompatActivity {
     CalendarView calendarView;
     private static final String TAG = "calendar view";
@@ -27,6 +22,9 @@ public class ViewCalendar extends AppCompatActivity {
         // Get a reference for the week view in the layout.
         calendarView= (CalendarView) findViewById(R.id.calendarView);
 
+        /**
+         * Date change listener. Takes clicked on date and sends it through an intent.
+         */
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {

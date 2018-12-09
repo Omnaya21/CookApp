@@ -31,6 +31,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+/**
+ * This class is responsible for Adding a recipie to the app and database.
+ */
 public class AddRecipe extends AppCompatActivity {
     private static final String IMAGE_DIRECTORY = "/cookapp";
     private static final int GALLERY = 1;
@@ -82,6 +85,10 @@ public class AddRecipe extends AppCompatActivity {
 
     }
 
+    /**
+     * Called when save button is clicked.   Takes the recipie fields and saves them.
+     * @param view
+     */
  public void onSaved(View view) {
             String title = recipeTitle.getText().toString();
             String ingredients = ingredientsBox.getText().toString();
@@ -97,8 +104,11 @@ public class AddRecipe extends AppCompatActivity {
 
         }
 
-
-public void onCheckboxClicked(View view){
+    /**
+     * Called when checkbox is clicked or uncliked.   Sets favorite using a shared preference.
+     * @param view
+     */
+    public void onCheckboxClicked(View view){
     if(favoriteBox.isChecked()) {
         editor.putString(checkBox, "True");
         editor.commit();

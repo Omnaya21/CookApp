@@ -10,7 +10,10 @@ import android.view.WindowManager;
 
 import java.util.Objects;
 
-/// This is our first screen we show to users
+/**
+ * This is our first screen we show to users
+ */
+
 public class SplashActivity extends AppCompatActivity {
 
     @Override

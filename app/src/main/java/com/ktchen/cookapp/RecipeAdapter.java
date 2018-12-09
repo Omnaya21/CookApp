@@ -11,6 +11,10 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * The adapter that allows the recyclerView to show recipes.
+ */
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder>{
     private List<Recipe> recipes= new ArrayList<Recipe>();
     private LayoutInflater mInflater;
@@ -22,6 +26,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         this.recipes= recipes;
     }
 
+    /**
+     * OnCreate for the adapter.
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     @NonNull
     public RecipeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
@@ -30,6 +40,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         return new ViewHolder(view);
     }
 
+    /**
+     * On BindViewHolder for the adapter.
+     * @param viewHolder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull RecipeAdapter.ViewHolder viewHolder,int position) {
         Recipe recipe = recipes.get(position);
@@ -38,7 +53,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         textView.setText(recipe.getTitle());
     }
 
-
+    /**
+     * Gets the item count.
+     * @return an int item.
+     */
     @Override
     public int getItemCount() {
         if(recipes!=null)
@@ -46,6 +64,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         else return 0;
     }
 
+    /**
+     * ViewHolder for the RecyclerView adapter.
+     */
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView textView;
@@ -56,6 +77,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             textView= (TextView) itemView.findViewById(R.id.textView);
             itemView.setOnClickListener(this);
         }
+
+        /**
+         * Click listener for the adapter.  Gets the position of where you clicked.
+         * @param view
+         */
         @Override
          public void onClick(View view) {
             if (mClickListener != null)
@@ -64,19 +90,26 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
 }
 
-
-
-    // convenience method for getting data at click position
+    /**
+     * Convenience method for getting data at click position.
+     * @param id
+     * @return Recipie
+     */
     Recipe getItem(int id) {
         return recipes.get(id);
     }
 
-    // allows clicks events to be caught
+    /**
+     * allows clicks events to be caught
+     * @param itemClickListener
+     */
     void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
     }
 
-    // parent activity will implement this method to respond to click events
+    /**
+     * parent activity will implement this method to respond to click events.
+     */
     public interface ItemClickListener {
         void onItemClick(View view, int position);
     }

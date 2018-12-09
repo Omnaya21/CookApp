@@ -27,7 +27,6 @@ import static com.ktchen.cookapp.AddRecipe.EXTRA_MESSAGE;
  */
 public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.ItemClickListener{
     private List<Recipe> recipes = new ArrayList<Recipe>();
-    RecipeBook book= new RecipeBook();
     RecipeAdapter adapter;
     private DatabaseHelper db;
 
