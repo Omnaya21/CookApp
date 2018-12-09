@@ -20,19 +20,20 @@ import static com.ktchen.cookapp.database.model.recipeTable.TABLE_NAME;
 
 /**
  * This class translates functions into SQL commands.
- *
+ * <p>
  * It extends SQLiteOpenHelper, and allows user to do things like insert stuff in the database.
  *
  * @author Jessica Ortner
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION =3;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_NAME = "recipes_db";
     private static DatabaseHelper sInstance = null;
 
     /**
      * Checks if there is an existing database, and if not creates it, else
      * returns the instance of it.
+     *
      * @param context
      * @return DatabaseHelper
      */
@@ -44,8 +45,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
         return sInstance;
     }
+
     private DatabaseHelper(Context context) {
-        super(context, DATABASE_NAME,null,DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
     }
 
@@ -62,13 +64,13 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     /**
      * Upgrades the database.
      *
-     * @param db Passes in the Database.
+     * @param db         Passes in the Database.
      * @param oldVersion An int representing the old version number.
      * @param newVersion An int representign new version number.
      */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS "+ recipeTable.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + recipeTable.TABLE_NAME);
         onCreate(db);
     }
 
@@ -78,7 +80,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param recipe Takes a Recipe as the parameter.
      * @return returns a long representing an id.
      */
-    public long insertRecipe(Recipe recipe){
+    public long insertRecipe(Recipe recipe) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
 
@@ -86,7 +88,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_INGREDIENT, recipe.getIngredients());
         values.put(COLUMN_DIRECTION, recipe.getDirections());
 
-        long id= db.insert(TABLE_NAME, null, values);
+        long id = db.insert(TABLE_NAME, null, values);
 
         db.close();
         return id;
@@ -98,23 +100,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      * @param id Takes a long that represents the id.
      * @return Returns the recipe.
      */
-    public Recipe getRecipe(long id){
-     SQLiteDatabase db = this.getReadableDatabase();
-     Cursor cursor = db.query(TABLE_NAME,
-             new String[] {COLUMN_ID, COLUMN_TITLE, COLUMN_INGREDIENT, COLUMN_DIRECTION},
-            COLUMN_ID + "=?",
-                     new String[] {String.valueOf(id)}, null, null, null, null);
-     if (cursor != null)
-         cursor.moveToFirst();
+    public Recipe getRecipe(long id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME,
+                new String[]{COLUMN_ID, COLUMN_TITLE, COLUMN_INGREDIENT, COLUMN_DIRECTION},
+                COLUMN_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
+        if (cursor != null)
+            cursor.moveToFirst();
 
-     //prepares new Recipe object.
-        Recipe recipe= new Recipe(
+        //prepares new Recipe object.
+        Recipe recipe = new Recipe(
                 cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)),
                 cursor.getString(cursor.getColumnIndex(COLUMN_INGREDIENT)),
                 cursor.getString(cursor.getColumnIndex(COLUMN_DIRECTION)),
                 cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
-    cursor.close();
-    return recipe;
+        cursor.close();
+        return recipe;
     }
 
     /**
@@ -124,31 +126,32 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public List<Recipe> getAllRecipes() {
         List<Recipe> recipes = new ArrayList<Recipe>();
-        String selectQuery = "SELECT * FROM "+ TABLE_NAME + " ORDER BY " +COLUMN_TITLE + " DESC ";
+        String selectQuery = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COLUMN_TITLE + " DESC ";
 
-        SQLiteDatabase db = this. getWritableDatabase();
-        Cursor cursor = db. rawQuery(selectQuery, null);
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
 
-        if(cursor.moveToFirst()){
+        if (cursor.moveToFirst()) {
             do {
                 Recipe recipe = new Recipe(cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)),
                         cursor.getString(cursor.getColumnIndex(COLUMN_INGREDIENT)),
                         cursor.getString(cursor.getColumnIndex(COLUMN_DIRECTION)),
                         cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
                 recipes.add(recipe);
-            }while (cursor.moveToNext());
+            } while (cursor.moveToNext());
 
-            }
-            db.close();
-        return recipes;
         }
+        db.close();
+        return recipes;
+    }
 
     /**
      * Updates the recipe in the database.
+     *
      * @param recipe Takes the new version of the recipe.
      * @return Returns ID of the recipe.
      */
-    public int updateRecipe(Recipe recipe){
+    public int updateRecipe(Recipe recipe) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -156,22 +159,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_INGREDIENT, recipe.getIngredients().toString());
         values.put(COLUMN_DIRECTION, recipe.getDirections().toString());
 
-        return db.update(TABLE_NAME, values, COLUMN_ID + " =?", new String[] {String.valueOf(recipe.getID())});
- }
+        return db.update(TABLE_NAME, values, COLUMN_ID + " =?", new String[]{String.valueOf(recipe.getID())});
+    }
 
     /**
      * Deletes a recipe.
      *
      * @param recipe Takes the recipe to be deleted.
      */
- public void deleteRecipe(Recipe recipe){
-        SQLiteDatabase db= this.getWritableDatabase();
+    public void deleteRecipe(Recipe recipe) {
+        SQLiteDatabase db = this.getWritableDatabase();
         db.delete(TABLE_NAME, COLUMN_ID + " =?",
                 new String[]{String.valueOf(recipe.getID())});
         db.close();
- }
-
-
     }
+
+
+}
 
 

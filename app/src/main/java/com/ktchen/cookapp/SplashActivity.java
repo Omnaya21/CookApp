@@ -19,7 +19,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.i("ActivityInfo","SplashActivity created");
+        Log.i("ActivityInfo", "SplashActivity created");
         //requestWindowFeature(Window.FEATURE_NO_TITLE);  // Hide the title
         //Objects.requireNonNull(getSupportActionBar()).hide();   // Hide the title bar
         //getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

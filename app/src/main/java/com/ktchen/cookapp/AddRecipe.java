@@ -46,25 +46,26 @@ public class AddRecipe extends AppCompatActivity {
     EditText recipeTitle;
     EditText ingredientsBox;
     EditText directionsBox;
-    List<Recipe> recipes= new ArrayList<Recipe>();
-    public static final String EXTRA_MESSAGE =  "com.ktchen.cookapp/extra";
+    List<Recipe> recipes = new ArrayList<Recipe>();
+    public static final String EXTRA_MESSAGE = "com.ktchen.cookapp/extra";
     private DatabaseHelper db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
-        Log.i("ActivityInfo","AddRecipe created");
+        Log.i("ActivityInfo", "AddRecipe created");
         db = DatabaseHelper.getInstance(this);
         recipeImage = findViewById(R.id.recipeImage);
-        favoriteBox= findViewById(R.id.favoriteCheckBox);
+        favoriteBox = findViewById(R.id.favoriteCheckBox);
         recipeTitle = (EditText) findViewById(R.id.title);
         ingredientsBox = (EditText) findViewById((R.id.ingredients));
         directionsBox = (EditText) findViewById(R.id.preparation);
         recipes.addAll(db.getAllRecipes());
-        Intent intent= getIntent();
-        if (intent.getExtras()!=null) {
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
             Bundle extras = intent.getExtras();
-            Recipe recipe= (Recipe) extras.getSerializable(EXTRA_MESSAGE);
+            Recipe recipe = (Recipe) extras.getSerializable(EXTRA_MESSAGE);
             recipeTitle.setText(recipe.getTitle());
             ingredientsBox.setText(recipe.getIngredients());
             directionsBox.setText(recipe.getDirections());
@@ -78,7 +79,7 @@ public class AddRecipe extends AppCompatActivity {
             }
         });
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        editor= mPreferences.edit();
+        editor = mPreferences.edit();
 
         checkSharedPreferences();
 
@@ -87,37 +88,39 @@ public class AddRecipe extends AppCompatActivity {
 
     /**
      * Called when save button is clicked.   Takes the recipie fields and saves them.
+     *
      * @param view
      */
- public void onSaved(View view) {
-            String title = recipeTitle.getText().toString();
-            String ingredients = ingredientsBox.getText().toString();
-            String direction = directionsBox.getText().toString();
-            Recipe newRecipe = new Recipe(title, ingredients, direction);
-            long id = db.insertRecipe(newRecipe);
-            newRecipe.setID(id);
-            recipes.add(newRecipe);
+    public void onSaved(View view) {
+        String title = recipeTitle.getText().toString();
+        String ingredients = ingredientsBox.getText().toString();
+        String direction = directionsBox.getText().toString();
+        Recipe newRecipe = new Recipe(title, ingredients, direction);
+        long id = db.insertRecipe(newRecipe);
+        newRecipe.setID(id);
+        recipes.add(newRecipe);
 
-            Intent intent= new Intent(this, RecipesActivity.class);
-         //   intent.putExtra(EXTRA_MESSAGE, newRecipe);
-            startActivity(intent);
+        Intent intent = new Intent(this, RecipesActivity.class);
+        //   intent.putExtra(EXTRA_MESSAGE, newRecipe);
+        startActivity(intent);
 
-        }
+    }
 
     /**
      * Called when checkbox is clicked or uncliked.   Sets favorite using a shared preference.
+     *
      * @param view
      */
-    public void onCheckboxClicked(View view){
-    if(favoriteBox.isChecked()) {
-        editor.putString(checkBox, "True");
-        editor.commit();
+    public void onCheckboxClicked(View view) {
+        if (favoriteBox.isChecked()) {
+            editor.putString(checkBox, "True");
+            editor.commit();
+        } else {
+            editor.putString(checkBox, "False");
+            editor.commit();
+        }
     }
-    else{
-        editor.putString(checkBox, "False");
-        editor.commit();
-    }
-}
+
     private void createRecipe(Recipe recipe) {
         // inserting note in db and getting
         // newly inserted note id
@@ -132,36 +135,36 @@ public class AddRecipe extends AppCompatActivity {
 
         }
     }
-    private void checkSharedPreferences(){
-        String favoriteCheckbox= mPreferences.getString(checkBox, "False");
-        if (favoriteCheckbox.equals("True")){
+
+    private void checkSharedPreferences() {
+        String favoriteCheckbox = mPreferences.getString(checkBox, "False");
+        if (favoriteCheckbox.equals("True")) {
             favoriteBox.setChecked(true);
-        }
-        else
+        } else
             favoriteBox.setChecked(false);
     }
 
     private void showPictureDialog(final View v) {
         String[] pictureDialogItems = {
                 "Select image from gallery",
-                "Take picture from camera" };
+                "Take picture from camera"};
         AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
         pictureDialog.setTitle("Select source")
-            .setItems(pictureDialogItems,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:     // Select image from gallery
-                                pickImageFromGallery(v);
-                                break;
+                .setItems(pictureDialogItems,
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which) {
+                                    case 0:     // Select image from gallery
+                                        pickImageFromGallery(v);
+                                        break;
 
-                            case 1:     // Take picture from camera
-                                takePhotoFromCamera();
-                                break;
-                        }
-                    }
-                })
+                                    case 1:     // Take picture from camera
+                                        takePhotoFromCamera();
+                                        break;
+                                }
+                            }
+                        })
                 .create()
                 .show();
 
@@ -169,6 +172,7 @@ public class AddRecipe extends AppCompatActivity {
 
     /**
      * Shows a dialog to allow users select an image to use on the app.
+     *
      * @param v
      */
     public void pickImageFromGallery(View v) {
@@ -185,6 +189,7 @@ public class AddRecipe extends AppCompatActivity {
 
     /**
      * After user selected an image or took a picture, now it's time to show that picture.
+     *
      * @param requestCode
      * @param resultCode
      * @param data
@@ -225,6 +230,7 @@ public class AddRecipe extends AppCompatActivity {
 
     /**
      * Saves the image locally for later use.
+     *
      * @param bitmap
      * @return the image path.
      */

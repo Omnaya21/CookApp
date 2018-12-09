@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.CalendarView;
+
 import java.util.GregorianCalendar;
 
 /**
@@ -15,12 +16,13 @@ import java.util.GregorianCalendar;
 public class ViewCalendar extends AppCompatActivity {
     CalendarView calendarView;
     private static final String TAG = "calendar view";
+
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         // Get a reference for the week view in the layout.
-        calendarView= (CalendarView) findViewById(R.id.calendarView);
+        calendarView = (CalendarView) findViewById(R.id.calendarView);
 
         /**
          * Date change listener. Takes clicked on date and sends it through an intent.
@@ -28,11 +30,11 @@ public class ViewCalendar extends AppCompatActivity {
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(@NonNull CalendarView view, int year, int month, int dayOfMonth) {
-                String date= month+1 + "/"+dayOfMonth + "/"+ year;
-                Log.i(TAG, "date selected is "+ date);
+                String date = month + 1 + "/" + dayOfMonth + "/" + year;
+                Log.i(TAG, "date selected is " + date);
 
                 Intent calIntent = new Intent(Intent.ACTION_INSERT);
-                calIntent.setDataAndType(CalendarContract.Events.CONTENT_URI,"vnd.android.cursor.item/event" );
+                calIntent.setDataAndType(CalendarContract.Events.CONTENT_URI, "vnd.android.cursor.item/event");
                 calIntent.putExtra(CalendarContract.Events.TITLE, "My Dinner Plan");
 
 

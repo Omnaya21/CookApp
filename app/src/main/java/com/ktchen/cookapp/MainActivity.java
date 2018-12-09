@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.i("ActivityInfo","Main created");
+        Log.i("ActivityInfo", "Main created");
 
         /// Define cards
         recipeCard = (CardView) findViewById(R.id.recipes_card);
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.calendar_card: // Calendar option
                 i = new Intent(v.getContext(), ViewCalendar.class);
-                startActivityForResult(i,0);
+                startActivityForResult(i, 0);
                 break;
 
             case R.id.create_plan_card: // Make a Plan option

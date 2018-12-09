@@ -29,7 +29,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         /// Before showing the list we have to search into our meal plan
         /// and grab the ingredients we need to show
-        String[] ingredients = new String[] {
+        String[] ingredients = new String[]{
                 "Milk",
                 "Eggs",
                 "Cream cheese",
@@ -46,8 +46,8 @@ public class ShoppingListActivity extends AppCompatActivity {
         };
 
         final List<String> ingredients_list = new ArrayList<String>(Arrays.asList(ingredients));
-        final ArrayAdapter<String> adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-                 ingredients_list);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+                ingredients_list);
         shoppingList.setAdapter(adapter);
         shoppingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -56,17 +56,17 @@ public class ShoppingListActivity extends AppCompatActivity {
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(ShoppingListActivity.this);
                 dialog.setTitle("Delete?")
-                    .setMessage("Are you sure you want to delete " + itemValue)
-                    .setNegativeButton("Cancel", null)
-                    .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialogInterface, int which) {
-                            /// Remove item from listview
-                            ingredients_list.remove(position);
-                            adapter.notifyDataSetChanged();
-                        }
-                })
-                .setIcon(R.drawable.ic_dialog_alert)
-                .show();
+                        .setMessage("Are you sure you want to delete " + itemValue)
+                        .setNegativeButton("Cancel", null)
+                        .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int which) {
+                                /// Remove item from listview
+                                ingredients_list.remove(position);
+                                adapter.notifyDataSetChanged();
+                            }
+                        })
+                        .setIcon(R.drawable.ic_dialog_alert)
+                        .show();
             }
         });
     }
