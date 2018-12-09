@@ -32,7 +32,7 @@ import java.util.Calendar;
 import java.util.List;
 
 /**
- * This class is responsible for Adding a recipie to the app and database.
+ * This class is responsible for Adding a recipe to the app and database.
  */
 public class AddRecipe extends AppCompatActivity {
     private static final String IMAGE_DIRECTORY = "/cookapp";
@@ -87,7 +87,7 @@ public class AddRecipe extends AppCompatActivity {
     }
 
     /**
-     * Called when save button is clicked.   Takes the recipie fields and saves them.
+     * Called when save button is clicked.   Takes the recipe fields and saves them.
      *
      * @param view
      */
@@ -107,7 +107,7 @@ public class AddRecipe extends AppCompatActivity {
     }
 
     /**
-     * Called when checkbox is clicked or uncliked.   Sets favorite using a shared preference.
+     * Called when checkbox is clicked or un-clicked.   Sets favorite using a shared preference.
      *
      * @param view
      */
