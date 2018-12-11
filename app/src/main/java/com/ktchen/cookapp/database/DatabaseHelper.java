@@ -110,11 +110,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
 
         //prepares new Recipe object.
-        Recipe recipe = new Recipe(
+        Recipe recipe = new Recipe(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)),
                 cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)),
                 cursor.getString(cursor.getColumnIndex(COLUMN_INGREDIENT)),
-                cursor.getString(cursor.getColumnIndex(COLUMN_DIRECTION)),
-                cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
+                cursor.getString(cursor.getColumnIndex(COLUMN_DIRECTION))
+                );
         cursor.close();
         return recipe;
     }
@@ -133,10 +133,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         if (cursor.moveToFirst()) {
             do {
-                Recipe recipe = new Recipe(cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)),
+                Recipe recipe = new Recipe(
+                        cursor.getInt(cursor.getColumnIndex(COLUMN_ID)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)),
                         cursor.getString(cursor.getColumnIndex(COLUMN_INGREDIENT)),
-                        cursor.getString(cursor.getColumnIndex(COLUMN_DIRECTION)),
-                        cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
+                        cursor.getString(cursor.getColumnIndex(COLUMN_DIRECTION))
+                        );
                 recipes.add(recipe);
             } while (cursor.moveToNext());
 

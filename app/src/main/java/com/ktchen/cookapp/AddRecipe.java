@@ -5,15 +5,20 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.provider.MediaStore;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -47,6 +52,7 @@ public class AddRecipe extends AppCompatActivity {
     EditText recipeTitle;
     EditText ingredientsBox;
     EditText directionsBox;
+    String imagePath = "";
     Button saveUpdateBtn;
     List<Recipe> recipes = new ArrayList<Recipe>();
     public static final String EXTRA_MESSAGE = "com.ktchen.cookapp/extra";
@@ -57,11 +63,17 @@ public class AddRecipe extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_recipe);
+        Toolbar addRecipeToolbar = findViewById(R.id.add_recipe_toolbar);
+        setSupportActionBar(addRecipeToolbar);
+        ActionBar ab = getSupportActionBar();
+        //ab.setDisplayHomeAsUpEnabled(false);
+        setTitle("Add Recipe");
+
         Log.i("ActivityInfo", "AddRecipe created");
         db = DatabaseHelper.getInstance(this);
         saveUpdateBtn = findViewById(R.id.saveButton);
         saveUpdateBtn.setText("Save");
-        recipeImage = findViewById(R.id.recipeImage);
+        recipeImage = findViewById(R.id.recipe_image);
         favoriteBox = findViewById(R.id.favoriteCheckBox);
         recipeTitle = (EditText) findViewById(R.id.title);
         ingredientsBox = (EditText) findViewById((R.id.ingredients));
@@ -74,9 +86,12 @@ public class AddRecipe extends AppCompatActivity {
             recipeTitle.setText(recipe.getTitle());
             ingredientsBox.setText(recipe.getIngredients());
             directionsBox.setText(recipe.getDirections());
+            imagePath = recipe.getImagePath();
             recipeId = recipe.getID();
+            loadImage(imagePath);
             saveUpdateBtn.setText("Update");
-            setTitle("Edit Recipe - " + recipe.getTitle());
+            setTitle("Edit Recipe");
+            ab.setSubtitle(recipe.getTitle());
         }
 
         recipeImage.setOnClickListener(new View.OnClickListener() {
@@ -89,6 +104,78 @@ public class AddRecipe extends AppCompatActivity {
         editor = mPreferences.edit();
 
         checkSharedPreferences();
+    }
+
+    private void loadImage(String fileName) {
+        if (fileName == null)
+            return;
+
+        File imgFile = new File(fileName);
+
+        if (imgFile.exists()) {
+            Bitmap recipeBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+            ImageView recipeImageView = findViewById(R.id.recipe_image);
+            recipeImageView.setImageBitmap(recipeBitmap);
+        }
+    }
+
+    /**
+     * Initialize the contents of the Activity's standard options menu.  You
+     * should place your menu items in to <var>menu</var>.
+     *
+     * <p>This is only called once, the first time the options menu is
+     * displayed.  To update the menu every time it is displayed, see
+     * {@link #onPrepareOptionsMenu}.
+     *
+     * <p>The default implementation populates the menu with standard system
+     * menu items.  These are placed in the {@link Menu#CATEGORY_SYSTEM} group so that
+     * they will be correctly ordered with application-defined menu items.
+     * Deriving classes should always call through to the base implementation.
+     *
+     * <p>You can safely hold on to <var>menu</var> (and any items created
+     * from it), making modifications to it as desired, until the next
+     * time onCreateOptionsMenu() is called.
+     *
+     * <p>When you add items to the menu, you can implement the Activity's
+     * {@link #onOptionsItemSelected} method to handle them there.
+     *
+     * @param menu The options menu in which you place your items.
+     * @return You must return true for the menu to be displayed;
+     * if you return false it will not be shown.
+     * @see #onPrepareOptionsMenu
+     * @see #onOptionsItemSelected
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.add_recipe_toolbar, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    /**
+     * This hook is called whenever an item in your options menu is selected.
+     * The default implementation simply returns false to have the normal
+     * processing happen (calling the item's Runnable or sending a message to
+     * its Handler as appropriate).  You can use this method for any items
+     * for which you would like to do processing without those other
+     * facilities.
+     *
+     * <p>Derived classes should call through to the base class for it to
+     * perform the default menu handling.</p>
+     *
+     * @param item The menu item that was selected.
+     * @return boolean Return false to allow normal menu processing to
+     * proceed, true to consume it here.
+     * @see #onCreateOptionsMenu
+     */
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.save_recipe:
+                onSaved(item.getActionView());
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     /**
@@ -105,7 +192,6 @@ public class AddRecipe extends AppCompatActivity {
             long id = db.insertRecipe(newRecipe);
             newRecipe.setID(id);
             recipes.add(newRecipe);
-
         }
         else {  //Update current recipe instead of creating another one
             if (recipeId > -1) {
@@ -222,7 +308,8 @@ public class AddRecipe extends AppCompatActivity {
                     try {
                         Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentUri);
                         String path = saveImage(bitmap);
-                        Toast.makeText(AddRecipe.this, "Image saved.", Toast.LENGTH_SHORT).show();
+                        imagePath = path;
+                        Toast.makeText(AddRecipe.this, "Image saved to " + path, Toast.LENGTH_SHORT).show();
                         recipeImage.setImageBitmap(bitmap);
                     } catch (IOException e) {
                         Log.e("ExceptionThrown", "Error opening image");
@@ -235,8 +322,8 @@ public class AddRecipe extends AppCompatActivity {
             case CAMERA:
                 Bitmap bitmap = (Bitmap) data.getExtras().get("data");
                 recipeImage.setImageBitmap(bitmap);
-                saveImage(bitmap);
-                Toast.makeText(AddRecipe.this, "Image saved.", Toast.LENGTH_SHORT).show();
+                imagePath = saveImage(bitmap);
+                Toast.makeText(AddRecipe.this, "Image saved to " + imagePath, Toast.LENGTH_SHORT).show();
                 break;
         }
     }

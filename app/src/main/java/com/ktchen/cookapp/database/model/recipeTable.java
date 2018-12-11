@@ -11,18 +11,21 @@ public class recipeTable {
     public static final String COLUMN_TITLE = "title";
     public static final String COLUMN_INGREDIENT = "ingredients";
     public static final String COLUMN_DIRECTION = "directions";
+    public static final String COLUMN_IMAGE = "image";
 
 
     private int id;
     private String title;
     private String ingredient;
     private String directions;
+    private String image;
 
     public static final String CREATE_TABLE =
             "CREATE TABLE " + TABLE_NAME + "("
                     + COLUMN_ID + " INTEGER PRIMARY KEY,"
                     + COLUMN_TITLE + " TEXT,"
                     + COLUMN_INGREDIENT + " TEXT,"
+                    + COLUMN_IMAGE + " TEXT,"
                     + COLUMN_DIRECTION + " TEXT" + ")";
 
     /**
@@ -39,11 +42,12 @@ public class recipeTable {
      * @param ingredient A string with the ingredients.
      * @param direction  A string with the directions.
      */
-    public recipeTable(int id, String title, String ingredient, String direction) {
+    public recipeTable(int id, String title, String ingredient, String direction, String imagePath) {
         this.id = id;
         this.title = title;
         this.ingredient = ingredient;
         this.directions = direction;
+        this.image = imagePath;
     }
 
     /**
@@ -118,4 +122,11 @@ public class recipeTable {
         this.directions = directions;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
 }

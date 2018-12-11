@@ -7,4 +7,6 @@
     <color name="colorPrimary20p">#33008577</color>
     <color name="background_color">#fcfcfc</color>
     <color name="border_color">#2e998e</color>
+    <color name="text_light">#f0f2f2</color>
+    <color name="text_dark">#363739</color>
 </resources>

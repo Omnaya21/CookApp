@@ -16,6 +16,8 @@
         android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:gravity="top"
+        app:titleTextColor="@color/text_light"
+        app:subtitleTextColor="@color/text_light"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
     </android.support.v7.widget.Toolbar>
@@ -23,6 +25,5 @@
     <ListView
         android:id="@+id/shoppingListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-         ></ListView>
+        android:layout_height="match_parent"/>
 </LinearLayout>

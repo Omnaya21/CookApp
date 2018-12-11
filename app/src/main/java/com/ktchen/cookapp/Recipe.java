@@ -19,6 +19,7 @@ public class Recipe implements Serializable {
     private String title;
     private String ingredients = null;
     private String directions = null;
+    private String imagePath = null;
     private long id = 0;
 
     // private Image picture;
@@ -61,11 +62,19 @@ public class Recipe implements Serializable {
      * @param directions
      * @param id
      */
-    public Recipe(String title, String ingredient, String directions, int id) {
+    public Recipe(int id, String title, String ingredient, String directions) {
         this.title = title;
         this.ingredients = ingredient;
         this.directions = directions;
         this.id = id;
+    }
+
+    public Recipe(int id, String title, String ingredient, String directions, String image) {
+        this.title = title;
+        this.ingredients = ingredient;
+        this.directions = directions;
+        this.id = id;
+        this.imagePath = image;
     }
 
     /**
@@ -157,4 +166,6 @@ public class Recipe implements Serializable {
         return this;
     }
 
+    public void setImagePath(String imagePath) {this.imagePath = imagePath;}
+    public String getImagePath() { return imagePath;}
 }
