@@ -6,11 +6,23 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center"
-    tools:context=".ShoppingListActivity">
+    tools:context=".ShoppingListActivity"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/shopping_list_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:gravity="top"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+    </android.support.v7.widget.Toolbar>
 
     <ListView
         android:id="@+id/shoppingListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="top"></ListView>
+         ></ListView>
 </LinearLayout>
