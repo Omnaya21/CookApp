@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -11,7 +12,12 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.ktchen.cookapp.database.DatabaseHelper;
@@ -44,10 +50,24 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         Log.i("ActivityInfo", "RecipeActivity created");
         setTitle("Recipes");
         RecyclerView recyclerView = findViewById(R.id.recipe_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         adapter = new RecipeAdapter(this, recipes);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
+
+        // This will allow us to create a context menu to delete recipes we don't need or want
+        registerForContextMenu(recyclerView);
+
+        /// Set the onClick listener for the FAB button
+        FloatingActionButton fabNewRecipe = findViewById(R.id.fab_new_recipe);
+        fabNewRecipe.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(RecipesActivity.this, AddRecipe.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -56,6 +76,37 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         Intent intent = new Intent(this, AddRecipe.class);
         intent.putExtra(EXTRA_MESSAGE, adapter.getItem(position));
         startActivity(intent);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        if (v.getId() == R.id.recipe_view) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.recipe_context_menu, menu);
+        }
+        /*if (v.getId() == R.id.recipe_view) {
+            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+            menu.setHeaderTitle("Delete Recipe");
+            String[] options = {"Edit", "Delete"};
+            for (int i=0; i<options.length; i++) {
+                menu.add(Menu.NONE, i, i, options[i]);
+            }
+        }*/
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        switch (item.getItemId()) {
+            case R.id.edit: // Edit Recipe
+                return true;
+
+            case R.id.delete:   // Delete Recipe
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
 };

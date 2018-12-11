@@ -30,7 +30,6 @@
             android:layout_margin="32dp"
             android:background="@drawable/edit_text_style"
             android:digits="1234567890"
-            android:hint="Number of days to plan"
             android:inputType="number"
             android:maxLength="2"
             android:textAlignment="center" />
