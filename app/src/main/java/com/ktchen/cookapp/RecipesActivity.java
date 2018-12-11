@@ -109,6 +109,13 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         }
     }
 
+   public void onDeleteButton(View view){
+        db.deleteAll();
+        recipes.clear();
+        adapter.notifyDataSetChanged();
+   }
+
+
 };
 
 

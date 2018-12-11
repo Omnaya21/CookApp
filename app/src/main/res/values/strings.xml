@@ -20,5 +20,6 @@
     <string name="menu_makeplan">Make a Plan</string>
 
     <string name="empty_not_saved" translatable="false">Word not saved because it is empty.</string>
+    <string name="deleteButton" translatable="false">Delete All</string>
 
 </resources>
