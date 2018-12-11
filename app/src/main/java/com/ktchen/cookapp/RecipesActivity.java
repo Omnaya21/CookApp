@@ -2,9 +2,11 @@ package com.ktchen.cookapp;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -104,9 +106,27 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
     }
 
    public void onDeleteButton(View view){
-        db.deleteAll();
-        recipes.clear();
-        adapter.notifyDataSetChanged();
+        if (db.getAllRecipes().size() <= 0) {
+            Toast.makeText(this, "There are no recipes in database!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        // We have to add a confirmation here before delete all recipes.
+       AlertDialog.Builder dialog = new AlertDialog.Builder(RecipesActivity.this);
+       dialog.setTitle("Delete?")
+               .setMessage("Are you sure you want to delete ALL recipes?")
+               .setNegativeButton("Cancel", null)
+               .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                   public void onClick(DialogInterface dialogInterface, int which) {
+                       /// Remove all recipes from database
+                       db.deleteAll();
+                       recipes.clear();
+                       adapter.notifyDataSetChanged();
+                   }
+               })
+               .setIcon(R.drawable.ic_dialog_alert)
+               .show();
+
    }
 
 
