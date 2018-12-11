@@ -51,6 +51,7 @@ public class AddRecipe extends AppCompatActivity {
     List<Recipe> recipes = new ArrayList<Recipe>();
     public static final String EXTRA_MESSAGE = "com.ktchen.cookapp/extra";
     private DatabaseHelper db;
+    private long recipeId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,9 @@ public class AddRecipe extends AppCompatActivity {
             recipeTitle.setText(recipe.getTitle());
             ingredientsBox.setText(recipe.getIngredients());
             directionsBox.setText(recipe.getDirections());
+            recipeId = recipe.getID();
             saveUpdateBtn.setText("Update");
+            setTitle("Edit Recipe - " + recipe.getTitle());
         }
 
         recipeImage.setOnClickListener(new View.OnClickListener() {
@@ -105,7 +108,11 @@ public class AddRecipe extends AppCompatActivity {
 
         }
         else {  //Update current recipe instead of creating another one
-
+            if (recipeId > -1) {
+                // Update recipe
+                newRecipe.setID(recipeId);
+                db.updateRecipe(newRecipe);
+            }
         }
 
         // We have to finish activity or the app will have different behaviour with the back arrows on top and bottom

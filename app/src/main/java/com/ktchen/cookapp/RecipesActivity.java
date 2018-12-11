@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -53,7 +54,9 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         Log.i("ActivityInfo", "RecipeActivity created");
         setTitle("Recipes");
         RecyclerView recyclerView = findViewById(R.id.recipe_view);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        //GridLayoutManager gridLayout = new GridLayoutManager(this, 2);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
         adapter = new RecipeAdapter(this, recipes);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);

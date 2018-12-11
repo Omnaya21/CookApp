@@ -126,7 +126,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
      */
     public List<Recipe> getAllRecipes() {
         List<Recipe> recipes = new ArrayList<Recipe>();
-        String selectQuery = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COLUMN_TITLE + " DESC ";
+        String selectQuery = "SELECT * FROM " + TABLE_NAME + " ORDER BY " + COLUMN_TITLE + " ASC ";
 
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
