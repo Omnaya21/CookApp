@@ -115,7 +115,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
         @Override
         public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
-
+            menu.setHeaderTitle("Actions");
+            menu.add(0, R.id.edit, getAdapterPosition(), "edit");
+            menu.add(0, R.id.delete, getAdapterPosition(), "Delete");
         }
     }
 

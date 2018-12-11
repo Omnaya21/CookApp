@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -46,6 +47,7 @@ public class AddRecipe extends AppCompatActivity {
     EditText recipeTitle;
     EditText ingredientsBox;
     EditText directionsBox;
+    Button saveUpdateBtn;
     List<Recipe> recipes = new ArrayList<Recipe>();
     public static final String EXTRA_MESSAGE = "com.ktchen.cookapp/extra";
     private DatabaseHelper db;
@@ -56,6 +58,8 @@ public class AddRecipe extends AppCompatActivity {
         setContentView(R.layout.activity_add_recipe);
         Log.i("ActivityInfo", "AddRecipe created");
         db = DatabaseHelper.getInstance(this);
+        saveUpdateBtn = findViewById(R.id.saveButton);
+        saveUpdateBtn.setText("Save");
         recipeImage = findViewById(R.id.recipeImage);
         favoriteBox = findViewById(R.id.favoriteCheckBox);
         recipeTitle = (EditText) findViewById(R.id.title);
@@ -69,8 +73,8 @@ public class AddRecipe extends AppCompatActivity {
             recipeTitle.setText(recipe.getTitle());
             ingredientsBox.setText(recipe.getIngredients());
             directionsBox.setText(recipe.getDirections());
+            saveUpdateBtn.setText("Update");
         }
-
 
         recipeImage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,8 +86,6 @@ public class AddRecipe extends AppCompatActivity {
         editor = mPreferences.edit();
 
         checkSharedPreferences();
-
-
     }
 
     /**
@@ -96,14 +98,18 @@ public class AddRecipe extends AppCompatActivity {
         String ingredients = ingredientsBox.getText().toString();
         String direction = directionsBox.getText().toString();
         Recipe newRecipe = new Recipe(title, ingredients, direction);
-        long id = db.insertRecipe(newRecipe);
-        newRecipe.setID(id);
-        recipes.add(newRecipe);
+        if (saveUpdateBtn.getText() == "Save") {
+            long id = db.insertRecipe(newRecipe);
+            newRecipe.setID(id);
+            recipes.add(newRecipe);
 
-        Intent intent = new Intent(this, RecipesActivity.class);
-        //   intent.putExtra(EXTRA_MESSAGE, newRecipe);
-        startActivity(intent);
+        }
+        else {  //Update current recipe instead of creating another one
 
+        }
+
+        // We have to finish activity or the app will have different behaviour with the back arrows on top and bottom
+        finish();
     }
 
     /**

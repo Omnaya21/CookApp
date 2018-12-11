@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
@@ -60,7 +61,7 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         // This will allow us to create a context menu to delete recipes we don't need or want
         registerForContextMenu(recyclerView);
 
-        /// Set the onClick listener for the FAB button
+        /// Set the onClick listener for the FAB Add recipe button
         FloatingActionButton fabNewRecipe = findViewById(R.id.fab_new_recipe);
         fabNewRecipe.setOnClickListener(new View.OnClickListener() {
 
@@ -71,6 +72,39 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
             }
         });
     }
+
+    /**
+     * Called after {@link #onStop} when the current activity is being
+     * re-displayed to the user (the user has navigated back to it).  It will
+     * be followed by {@link #onStart} and then {@link #onResume}.
+     *
+     * <p>For activities that are using raw {@link Cursor} objects (instead of
+     * creating them through
+     * {@link #managedQuery(Uri, String[], String, String[], String)},
+     * this is usually the place
+     * where the cursor should be required (because you had deactivated it in
+     * {@link #onStop}.
+     *
+     * <p><em>Derived classes must call through to the super class's
+     * implementation of this method.  If they do not, an exception will be
+     * thrown.</em></p>
+     *
+     * @see #onStop
+     * @see #onStart
+     * @see #onResume
+     */
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();;
+        startActivity(getIntent());
+    }
+
+    /**
+     * Refresh activity after going to add recipe or update recipe.
+     *
+     */
+
 
     @Override
     public void onItemClick(View view, int position) {
@@ -83,22 +117,29 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        if (v.getId() == R.id.recipe_view) {
-            MenuInflater inflater = getMenuInflater();
-            inflater.inflate(R.menu.recipe_context_menu, menu);
-        }
+        //if (v.getId() == R.id.recipe_view) {
+        //    MenuInflater inflater = getMenuInflater();
+        //    inflater.inflate(R.menu.recipe_context_menu, menu);
+        // }
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
+        String itemInfoStr;
+        super.onContextItemSelected(item);
         switch (item.getItemId()) {
             case R.id.edit: // Edit Recipe
-                Toast.makeText(this, "Edit from Recipes", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Edit Recipe " + item.getOrder(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, AddRecipe.class);
+                intent.putExtra(EXTRA_MESSAGE, adapter.getItem(item.getOrder()));   // item.getOrder() retrieves the recipe ID
+                startActivity(intent);
                 return true;
 
             case R.id.delete:   // Delete Recipe
-                Toast.makeText(this, "Delete from Recipes", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Delete Recipe " + item.getOrder(), Toast.LENGTH_SHORT).show();
+                //db.deleteRecipe(db.getRecipe(item.getOrder()));
+                recipes.remove(item.getOrder());
+                adapter.notifyDataSetChanged();
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -106,6 +147,7 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
     }
 
    public void onDeleteButton(View view){
+        /// If there is no recipes in database we just show a message and return back.
         if (db.getAllRecipes().size() <= 0) {
             Toast.makeText(this, "There are no recipes in database!", Toast.LENGTH_SHORT).show();
             return;
@@ -126,7 +168,6 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
                })
                .setIcon(R.drawable.ic_dialog_alert)
                .show();
-
    }
 
 
