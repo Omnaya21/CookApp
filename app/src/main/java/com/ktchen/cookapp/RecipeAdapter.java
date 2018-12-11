@@ -3,10 +3,13 @@ package com.ktchen.cookapp;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +41,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     public RecipeAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         Context context = parent.getContext();
         View view = mInflater.inflate(R.layout.recyclerview_item, parent, false);
-        return new ViewHolder(view);
+        RecipeAdapter.ViewHolder recipesViewHolder = new RecipeAdapter.ViewHolder(view, context);
+        return recipesViewHolder;
+        //return new ViewHolder(view);
     }
 
     /**
@@ -70,8 +75,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     /**
      * ViewHolder for the RecyclerView adapter.
      */
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
+    public class ViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener,View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
+        View view;
+        Context context;
         public TextView textView;
 
 
@@ -79,6 +86,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             super(itemView);
             textView = (TextView) itemView.findViewById(R.id.textView);
             itemView.setOnClickListener(this);
+        }
+
+        public ViewHolder(View itemView, Context ctx) {
+            super(itemView);
+            itemView.setOnCreateContextMenuListener(this);
+            view = itemView;
+            context = ctx;
+            textView = itemView.findViewById(R.id.textView);
         }
 
         /**
@@ -92,6 +107,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
                 mClickListener.onItemClick(view, getAdapterPosition());
         }
 
+        @Override
+        public boolean onMenuItemClick(MenuItem item) {
+            Toast.makeText(context, "Clicked on context menu", Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+        @Override
+        public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+
+        }
     }
 
     /**

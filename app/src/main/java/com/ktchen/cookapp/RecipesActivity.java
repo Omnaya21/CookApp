@@ -85,14 +85,6 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.recipe_context_menu, menu);
         }
-        /*if (v.getId() == R.id.recipe_view) {
-            AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-            menu.setHeaderTitle("Delete Recipe");
-            String[] options = {"Edit", "Delete"};
-            for (int i=0; i<options.length; i++) {
-                menu.add(Menu.NONE, i, i, options[i]);
-            }
-        }*/
     }
 
     @Override
@@ -100,9 +92,11 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo)item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.edit: // Edit Recipe
+                Toast.makeText(this, "Edit from Recipes", Toast.LENGTH_SHORT).show();
                 return true;
 
             case R.id.delete:   // Delete Recipe
+                Toast.makeText(this, "Delete from Recipes", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 return super.onContextItemSelected(item);
