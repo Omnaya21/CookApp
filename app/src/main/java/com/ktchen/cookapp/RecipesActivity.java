@@ -58,9 +58,9 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
             db.insertRecipe(new Recipe("Chicken and Rice", "chicken and rice", "Cook and serve"));
             db.insertRecipe(new Recipe("Beans", "beans, seasoning, water", "Cook beans and mash"));
 
-            recipes.addAll(db.getAllRecipes());
-        }
 
+        }
+        recipes.addAll(db.getAllRecipes());
 
         //  if (intent.getExtras()!=null)
         //     recipes.add((Recipe) getIntent().getExtras().getSerializable(EXTRA_MESSAGE));
