@@ -57,10 +57,11 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
             db.insertRecipe(new Recipe("Lasagna", "frozen lasagna", "serve"));
             db.insertRecipe(new Recipe("Chicken and Rice", "chicken and rice", "Cook and serve"));
             db.insertRecipe(new Recipe("Beans", "beans, seasoning, water", "Cook beans and mash"));
-
-
+            // This function call has been made before. We don't need to call it again unless we add the sample recipes.
+            // inside this block.
+            recipes.addAll(db.getAllRecipes());
         }
-        recipes.addAll(db.getAllRecipes());
+
 
         //  if (intent.getExtras()!=null)
         //     recipes.add((Recipe) getIntent().getExtras().getSerializable(EXTRA_MESSAGE));
