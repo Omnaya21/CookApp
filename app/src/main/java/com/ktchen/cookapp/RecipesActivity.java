@@ -48,7 +48,7 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
             //pre-fill database with some recipes for ease of use.
             db.insertRecipe(new Recipe("Mac & Cheese", "noodles, cheese, milk", "Cook noodles and melt cheese."));
             db.insertRecipe(new Recipe("Spaghetti", "pasta, sauce", "Cook noodles and add sauce."));
-            db.insertRecipe(new Recipe("Baked Potato", "potatos, sour cream, salt, pepper", "Bake potato and serve"));
+            db.insertRecipe(new Recipe("Baked Potato", "potatos, sour cream, salt, pepper, butter", "Bake potato and serve"));
             db.insertRecipe(new Recipe("Tacos", "ground beef, taco shells, cheese, taco seasoning, salsa, sour cream", "cook meat, season and serve."));
             db.insertRecipe(new Recipe("Burritos", "tortillas, beans, cheese, hot sauce", "warm beans and serve"));
             db.insertRecipe(new Recipe("Pizza", "frozen pizza", "Bake and serve"));
