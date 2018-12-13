@@ -51,9 +51,9 @@ public class ShoppingListActivity extends AppCompatActivity {
                 "Apples"
         };
 
-        final List<String> ingredients_list = new ArrayList<String>(Arrays.asList(ingredients));
+        final List<String> ingredientsList = new ArrayList<>(Arrays.asList(ingredients));
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
-                ingredients_list);
+                ingredientsList);
         shoppingList.setAdapter(adapter);
         shoppingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -67,7 +67,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                         .setPositiveButton("Delete", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialogInterface, int which) {
                                 /// Remove item from listview
-                                ingredients_list.remove(position);
+                                ingredientsList.remove(position);
                                 adapter.notifyDataSetChanged();
                             }
                         })

@@ -22,11 +22,6 @@ import java.util.ArrayList;
  * @version 1.0
  */
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    private CardView recipeCard;
-    private CardView calendarCard;
-    private CardView planCard;
-    private CardView shoppingCard;
-    private CardView addCard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +30,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Log.i("ActivityInfo", "Main created");
 
         /// Define cards
-        recipeCard = (CardView) findViewById(R.id.recipes_card);
-        calendarCard = (CardView) findViewById(R.id.calendar_card);
-        planCard = (CardView) findViewById(R.id.create_plan_card);
-        shoppingCard = (CardView) findViewById(R.id.shopping_list_card);
-        addCard = (CardView) findViewById(R.id.add_recipe_card);
+        CardView recipeCard = findViewById(R.id.recipes_card);
+        CardView calendarCard = findViewById(R.id.calendar_card);
+        CardView planCard = findViewById(R.id.create_plan_card);
+        CardView shoppingCard = findViewById(R.id.shopping_list_card);
+        CardView addCard = findViewById(R.id.add_recipe_card);
 
         /// Add onclick event listener
         recipeCard.setOnClickListener(this);

@@ -122,6 +122,9 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
     @Override
     protected void onRestart() {
         super.onRestart();
+        /// This lines will refresh our view once we're back from Add/Edit recipe
+        /// Since we updated our database, now we need to update our view and include
+        /// those changes.
         finish();;
         startActivity(getIntent());
     }

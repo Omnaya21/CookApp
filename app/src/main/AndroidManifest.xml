@@ -17,7 +17,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--android:theme="@style/Theme.AppCompat.Light.NoActionBar"-->
+
+        <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar" -->
 
         <activity
             android:name=".SplashActivity"
@@ -28,21 +29,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
             android:theme="@style/HomeTheme">
-
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".AddRecipe"
-            android:label="@string/add_new_recipe">
-        </activity>
-
+            android:label="@string/add_new_recipe"/>
         <activity
             android:name=".RecipesActivity"
             android:label="Recipes"
@@ -51,18 +47,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity android:name=".ViewCalendar" />
-
         <activity
             android:name=".ShoppingListActivity"
             android:parentActivityName=".MainActivity">
-
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-
         <activity
             android:name=".CreatePlanActivity"
             android:label="Create Plan"
@@ -72,7 +64,12 @@
                 android:value=".MainActivity" />
         </activity>
 
-        <activity android:name=".CookBookActivity"></activity>
+        <activity android:name=".MealPlanActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android:support.PARENT_ACTIVITY"
+                android:value=".MainActivity"/>
+        </activity>
     </application>
 
 </manifest>

@@ -42,6 +42,7 @@ import java.util.List;
  */
 public class AddRecipe extends AppCompatActivity {
     private static final String IMAGE_DIRECTORY = "/cookapp";
+    public static final String EXTRA_MESSAGE = "com.ktchen.cookapp/extra";
     private static final int GALLERY = 1;
     private static final int CAMERA = 2;
     ImageView recipeImage;
@@ -55,7 +56,7 @@ public class AddRecipe extends AppCompatActivity {
     String imagePath = "";
     Button saveUpdateBtn;
     List<Recipe> recipes = new ArrayList<Recipe>();
-    public static final String EXTRA_MESSAGE = "com.ktchen.cookapp/extra";
+
     private DatabaseHelper db;
     private long recipeId = -1;
 

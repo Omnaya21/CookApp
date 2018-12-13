@@ -2,9 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/save_recipe"
-        android:icon="@drawable/ic_save_white"
-        android:tooltipText="Save/Update recipe"
+        android:id="@+id/send_to_calendar"
+        android:icon="@drawable/ic_calendar_white"
+        android:tooltipText="Send plan to calendar"
         android:title="save recipe"
         app:showAsAction="ifRoom" />
 </menu>
