@@ -40,7 +40,7 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         db = DatabaseHelper.getInstance(this);
-        Intent intent = getIntent();
+        //Intent intent = getIntent();
 
         recipes.addAll(db.getAllRecipes());
 
@@ -72,7 +72,10 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         setSupportActionBar(recipesToolbar);
         setTitle("Recipes");
         ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+            ab.setSubtitle(recipes.size() + " recipes");
+        }
 
         Log.i("ActivityInfo", "RecipeActivity created");
 
@@ -124,7 +127,7 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         /// This lines will refresh our view once we're back from Add/Edit recipe
         /// Since we updated our database, now we need to update our view and include
         /// those changes.
-        finish();;
+        finish();
         startActivity(getIntent());
     }
 
@@ -183,16 +186,17 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         switch(item.getItemId()) {
             case R.id.grid:
                 layout = (GridLayoutManager)recyclerView.getLayoutManager();
-                item.setChecked(!item.isChecked());
-                if (item.isChecked()) {
-                    item.setIcon(R.drawable.ic_grid_on);
-                    layout.setSpanCount(2);
+                if (layout != null) {
+                    item.setChecked(!item.isChecked());
+                    if (item.isChecked()) {
+                        item.setIcon(R.drawable.ic_grid_on);
+                        layout.setSpanCount(2);
+                    } else {
+                        item.setIcon(R.drawable.ic_grid_off);
+                        layout.setSpanCount(1);
+                    }
+                    recyclerView.setLayoutManager(layout);
                 }
-                else {
-                    item.setIcon(R.drawable.ic_grid_off);
-                    layout.setSpanCount(1);
-                }
-                recyclerView.setLayoutManager(layout);
                 return true;
 
             default:
@@ -222,7 +226,6 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        String itemInfoStr;
         super.onContextItemSelected(item);
         switch (item.getItemId()) {
             case R.id.edit: // Edit Recipe
@@ -268,7 +271,7 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
    }
 
 
-};
+}
 
 
 

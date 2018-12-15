@@ -14,6 +14,7 @@ import java.util.List;
 
 import static com.ktchen.cookapp.database.model.recipeTable.COLUMN_DIRECTION;
 import static com.ktchen.cookapp.database.model.recipeTable.COLUMN_ID;
+import static com.ktchen.cookapp.database.model.recipeTable.COLUMN_IMAGE;
 import static com.ktchen.cookapp.database.model.recipeTable.COLUMN_INGREDIENT;
 import static com.ktchen.cookapp.database.model.recipeTable.COLUMN_TITLE;
 import static com.ktchen.cookapp.database.model.recipeTable.TABLE_NAME;
@@ -87,6 +88,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_TITLE, recipe.getTitle());
         values.put(COLUMN_INGREDIENT, recipe.getIngredients());
         values.put(COLUMN_DIRECTION, recipe.getDirections());
+        values.put(COLUMN_IMAGE, recipe.getImagePath());
 
         long id = db.insert(TABLE_NAME, null, values);
 
@@ -104,7 +106,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         Recipe recipe = null;
         Cursor cursor = db.query(TABLE_NAME,
-                new String[]{COLUMN_ID, COLUMN_TITLE, COLUMN_INGREDIENT, COLUMN_DIRECTION},
+                new String[]{COLUMN_ID, COLUMN_TITLE, COLUMN_INGREDIENT, COLUMN_DIRECTION, COLUMN_IMAGE},
                 COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null) {
@@ -114,7 +116,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             recipe = new Recipe(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)),
                     cursor.getString(cursor.getColumnIndex(COLUMN_INGREDIENT)),
-                    cursor.getString(cursor.getColumnIndex(COLUMN_DIRECTION))
+                    cursor.getString(cursor.getColumnIndex(COLUMN_DIRECTION)),
+                    cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE))
             );
             cursor.close();
         }
@@ -139,7 +142,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                         cursor.getInt(cursor.getColumnIndex(COLUMN_ID)),
                         cursor.getString(cursor.getColumnIndex(COLUMN_TITLE)),
                         cursor.getString(cursor.getColumnIndex(COLUMN_INGREDIENT)),
-                        cursor.getString(cursor.getColumnIndex(COLUMN_DIRECTION))
+                        cursor.getString(cursor.getColumnIndex(COLUMN_DIRECTION)),
+                        cursor.getString(cursor.getColumnIndex(COLUMN_IMAGE))
                         );
                 recipes.add(recipe);
             } while (cursor.moveToNext());
@@ -163,6 +167,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         values.put(COLUMN_TITLE, recipe.getTitle());
         values.put(COLUMN_INGREDIENT, recipe.getIngredients());
         values.put(COLUMN_DIRECTION, recipe.getDirections());
+        values.put(COLUMN_IMAGE, recipe.getImagePath());
+
 
         return db.update(TABLE_NAME, values, COLUMN_ID + " =?", new String[]{String.valueOf(recipe.getID())});
     }

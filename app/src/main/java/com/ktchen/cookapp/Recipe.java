@@ -1,15 +1,6 @@
 package com.ktchen.cookapp;
 
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.PrimaryKey;
-import android.media.Image;
-import android.provider.CalendarContract;
-import android.support.annotation.NonNull;
-
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class is used to define a Recipe item.
@@ -28,7 +19,7 @@ public class Recipe implements Serializable {
     /**
      * Constructor taking just a name.
      *
-     * @param name
+     * @param name Recipe's name
      */
     public Recipe(String name) {
         title = name;
@@ -44,9 +35,9 @@ public class Recipe implements Serializable {
     /**
      * Constructor taking a title, ingredient, and directions.
      *
-     * @param title
-     * @param ingredient
-     * @param directions
+     * @param title Recipe's name
+     * @param ingredient Ingredients
+     * @param directions Directions
      */
     public Recipe(String title, String ingredient, String directions) {
         this.title = title;
@@ -57,16 +48,23 @@ public class Recipe implements Serializable {
     /**
      * Constructor that takes a title, ingredient, directions, and user ID.
      *
-     * @param title
-     * @param ingredient
-     * @param directions
-     * @param id
+     * @param title Recipe's name
+     * @param ingredient Ingredients
+     * @param directions Directions
+     * @param id Recipe's id
      */
     public Recipe(int id, String title, String ingredient, String directions) {
         this.title = title;
         this.ingredients = ingredient;
         this.directions = directions;
         this.id = id;
+    }
+
+    public Recipe(String title, String ingredient, String directions, String image) {
+        this.title = title;
+        this.ingredients = ingredient;
+        this.directions = directions;
+        this.imagePath = image;
     }
 
     public Recipe(int id, String title, String ingredient, String directions, String image) {
@@ -77,7 +75,7 @@ public class Recipe implements Serializable {
         this.imagePath = image;
     }
 
-    /**
+    /*
      * Setter for ID.
      *
      * @param id (a long).
@@ -98,7 +96,7 @@ public class Recipe implements Serializable {
     /**
      * Setter for title.
      *
-     * @param name
+     * @param name Sets recipe's name
      */
     public void setTitle(String name) {
         title = name;
@@ -107,7 +105,7 @@ public class Recipe implements Serializable {
     /**
      * Getter for title.
      *
-     * @return
+     * @return Returns recipe's name
      */
     public String getTitle() {
         return title;
@@ -133,7 +131,7 @@ public class Recipe implements Serializable {
     /**
      * Setter for ingredients.
      *
-     * @param ingredients
+     * @param ingredients Set the recipe's ingredients
      */
     public void setIngredients(String ingredients) {
         this.ingredients = ingredients;
@@ -142,7 +140,7 @@ public class Recipe implements Serializable {
     /**
      * Getter for directions.
      *
-     * @return
+     * @return Returns recipe's ingredients
      */
     public String getDirections() {
         return directions;
@@ -151,7 +149,7 @@ public class Recipe implements Serializable {
     /**
      * Setter for directions.
      *
-     * @param directions
+     * @param directions Sets recipe's directions
      */
     public void setDirections(String directions) {
         this.directions = directions;
@@ -160,12 +158,16 @@ public class Recipe implements Serializable {
     /**
      * Returns the whole recipe.
      *
-     * @return
+     * @return Returns a Recipe instance
      */
     public Recipe getRecipe() {
         return this;
     }
 
-    public void setImagePath(String imagePath) {this.imagePath = imagePath;}
-    public String getImagePath() { return imagePath;}
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+    public String getImagePath() {
+        return imagePath;
+    }
 }

@@ -190,8 +190,9 @@ public class AddRecipe extends AppCompatActivity {
         String title = recipeTitle.getText().toString();
         String ingredients = ingredientsBox.getText().toString();
         String direction = directionsBox.getText().toString();
-        Recipe newRecipe = new Recipe(title, ingredients, direction);
-        if (saveUpdateBtn.getText() == "Save") {
+        //Recipe newRecipe = new Recipe(title, ingredients, direction);
+        Recipe newRecipe = new Recipe(title, ingredients, direction, imagePath);
+        if (saveUpdateBtn.getText().toString().matches("Save")) {
             long id = db.insertRecipe(newRecipe);
             newRecipe.setID(id);
             recipes.add(newRecipe);

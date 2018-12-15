@@ -1,6 +1,8 @@
 package com.ktchen.cookapp;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
@@ -8,9 +10,11 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,7 +23,7 @@ import java.util.List;
  * The adapter that allows the recyclerView to show recipes.
  */
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder> {
-    private List<Recipe> recipes = new ArrayList<Recipe>();
+    private List<Recipe> recipes;
     private LayoutInflater mInflater;
     private ItemClickListener mClickListener;
 
@@ -58,6 +62,16 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
 
         TextView textView = viewHolder.textView;
         textView.setText(recipe.getTitle());
+        ImageView image = viewHolder.image;
+
+        if (recipe.getImagePath() != null) {
+            File imgFile = new File(recipe.getImagePath());
+
+            if (imgFile.exists()) {
+                Bitmap recipeBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath());
+                image.setImageBitmap(recipeBitmap);
+            }
+        }
     }
 
     /**
@@ -80,11 +94,12 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         View view;
         Context context;
         public TextView textView;
-
+        public ImageView image;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.textView);
+            textView = itemView.findViewById(R.id.textView);
+            image = itemView.findViewById(R.id.recipe_image);
             itemView.setOnClickListener(this);
         }
 
@@ -94,6 +109,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
             view = itemView;
             context = ctx;
             textView = itemView.findViewById(R.id.textView);
+            image = itemView.findViewById(R.id.recipe_image);
         }
 
         /**
@@ -124,8 +140,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     /**
      * Convenience method for getting data at click position.
      *
-     * @param id
-     * @return Recipie
+     * @param id Recipe ID
+     * @return Recipe
      */
     Recipe getItem(int id) {
         return recipes.get(id);
