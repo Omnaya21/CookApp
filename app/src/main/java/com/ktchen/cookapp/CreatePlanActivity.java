@@ -22,8 +22,6 @@ import java.util.List;
 public class CreatePlanActivity extends AppCompatActivity {
     public static final String EXTRA_DAYS = "com.ktchen.cookapp/mealPlanDays";
     private List<Recipe> recipes = new ArrayList<>();
-    private DatabaseHelper db;
-    private Button createBtn;
     private EditText days;
 
     @Override
@@ -34,15 +32,16 @@ public class CreatePlanActivity extends AppCompatActivity {
         days = findViewById(R.id.input_days);
 
         /// Load database to check if we have enough recipes
-        db = DatabaseHelper.getInstance(this);
+        DatabaseHelper db = DatabaseHelper.getInstance(this);
         recipes.addAll(db.getAllRecipes());
+        db.close();
         final int nRecipes = recipes.size();
         if (nRecipes == 0){
             Toast.makeText(this, "Recipes database is empty", Toast.LENGTH_SHORT).show();
             finish();   // Finish the activity and return to previous activity. This probably won't even display the activity.
         }
 
-        createBtn = findViewById(R.id.create_plan_button);
+        Button createBtn = findViewById(R.id.create_plan_button);
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

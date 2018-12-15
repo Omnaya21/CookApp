@@ -18,4 +18,5 @@
     <string name="menu_shoppinglist">Lista de Compras</string>
     <string name="menu_newrecipe">Agregar Receta</string>
     <string name="menu_makeplan">Crear Plan</string>
+    <string name="button_update">Actualizar</string>
 </resources>

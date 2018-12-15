@@ -26,9 +26,7 @@ import java.util.Random;
  */
 public class MealPlanActivity extends AppCompatActivity {
     private List<Recipe> recipes = new ArrayList<>();
-    private DatabaseHelper db;
     private int nDays = 0;
-    private int nRecipes = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +38,9 @@ public class MealPlanActivity extends AppCompatActivity {
         setSupportActionBar(createPlanToolbar);
 
         // Load the Recipe's database to later add random recipes.
-        db = DatabaseHelper.getInstance(this);
+        DatabaseHelper db = DatabaseHelper.getInstance(this);
         recipes.addAll(db.getAllRecipes());
-        nRecipes = recipes.size();
+        db.close();
 
         // Get the number of days to plan
         Intent intent = getIntent();
@@ -53,26 +51,21 @@ public class MealPlanActivity extends AppCompatActivity {
 
         // Set days to plan on a subtitle
         ActionBar ab = getSupportActionBar();
-        ab.setDisplayHomeAsUpEnabled(true);
-        setTitle("Meal Plan");
-        String subtitleStr = nDays + " day";
-        if (nDays > 1)
-            subtitleStr += "s";
-        ab.setSubtitle(subtitleStr);
-
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+            setTitle("Meal Plan");
+            String subtitleStr = nDays + " day";
+            if (nDays > 1)
+                subtitleStr += "s";
+            ab.setSubtitle(subtitleStr);
+        }
         final ListView mealPlanListView = findViewById(R.id.meal_plan_listview);
-
-        String[] planStr = new String[]{
-                "12Dec2018 - Baked potatoes",
-                "13Dec2018 - Tacos",
-                "14Dec2018 - Spaghetti"
-        };
 
         /// Create the random strings with dates starting today
         String[] createdPlan = CreateRandomRecipes(nDays, recipes);
 
-        final List<String> mealPlanList = new ArrayList<String>(Arrays.asList(createdPlan));
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
+        final List<String> mealPlanList = new ArrayList<>(Arrays.asList(createdPlan));
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
                 mealPlanList);
         mealPlanListView.setAdapter(adapter);
         mealPlanListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

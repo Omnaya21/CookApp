@@ -21,5 +21,6 @@
 
     <string name="empty_not_saved" translatable="false">Word not saved because it is empty.</string>
     <string name="deleteButton" translatable="false">Delete All</string>
+    <string name="button_update">Update</string>
 
 </resources>

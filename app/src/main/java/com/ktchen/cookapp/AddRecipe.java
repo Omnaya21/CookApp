@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This class is responsible for Adding a recipe to the app and database.
@@ -53,7 +54,7 @@ public class AddRecipe extends AppCompatActivity {
     EditText directionsBox;
     String imagePath = "";
     Button saveUpdateBtn;
-    List<Recipe> recipes = new ArrayList<Recipe>();
+    List<Recipe> recipes = new ArrayList<>();
 
     private DatabaseHelper db;
     private long recipeId = -1;
@@ -65,13 +66,12 @@ public class AddRecipe extends AppCompatActivity {
         Toolbar addRecipeToolbar = findViewById(R.id.add_recipe_toolbar);
         setSupportActionBar(addRecipeToolbar);
         ActionBar ab = getSupportActionBar();
-        //ab.setDisplayHomeAsUpEnabled(false);
         setTitle("Add Recipe");
 
         Log.i("ActivityInfo", "AddRecipe created");
         db = DatabaseHelper.getInstance(this);
         saveUpdateBtn = findViewById(R.id.saveButton);
-        saveUpdateBtn.setText("Save");
+        saveUpdateBtn.setText(R.string.button_save);
         recipeImage = findViewById(R.id.recipe_image);
         favoriteBox = findViewById(R.id.favoriteCheckBox);
         recipeTitle = findViewById(R.id.title);
@@ -82,15 +82,19 @@ public class AddRecipe extends AppCompatActivity {
         if (intent.getExtras() != null) {
             Bundle extras = intent.getExtras();
             Recipe recipe = (Recipe) extras.getSerializable(EXTRA_MESSAGE);
-            recipeTitle.setText(recipe.getTitle());
-            ingredientsBox.setText(recipe.getIngredients());
-            directionsBox.setText(recipe.getDirections());
-            imagePath = recipe.getImagePath();
-            recipeId = recipe.getID();
-            loadImage(imagePath);
-            saveUpdateBtn.setText("Update");
-            setTitle("Edit Recipe");
-            ab.setSubtitle(recipe.getTitle());
+            if (recipe != null) {
+                recipeTitle.setText(recipe.getTitle());
+                ingredientsBox.setText(recipe.getIngredients());
+                directionsBox.setText(recipe.getDirections());
+                imagePath = recipe.getImagePath();
+                recipeId = recipe.getID();
+                loadImage(imagePath);
+
+                saveUpdateBtn.setText(R.string.button_update);
+                setTitle("Edit Recipe");
+                if (ab != null)
+                    ab.setSubtitle(recipe.getTitle());
+            }
         }
 
         recipeImage.setOnClickListener(new View.OnClickListener() {
@@ -101,8 +105,8 @@ public class AddRecipe extends AppCompatActivity {
         });
         mPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = mPreferences.edit();
-
         checkSharedPreferences();
+        editor.apply();
     }
 
     private void loadImage(String fileName) {
@@ -180,7 +184,7 @@ public class AddRecipe extends AppCompatActivity {
     /**
      * Called when save button is clicked.   Takes the recipe fields and saves them.
      *
-     * @param view
+     * @param view Current view
      */
     public void onSaved(View view) {
         String title = recipeTitle.getText().toString();
@@ -196,7 +200,8 @@ public class AddRecipe extends AppCompatActivity {
             if (recipeId > -1) {
                 // Update recipe
                 newRecipe.setID(recipeId);
-                db.updateRecipe(newRecipe);
+                if( db.updateRecipe(newRecipe) != 1)
+                    Toast.makeText(this, "Recipe not updated", Toast.LENGTH_SHORT).show();
             }
         }
 
@@ -207,7 +212,7 @@ public class AddRecipe extends AppCompatActivity {
     /**
      * Called when checkbox is clicked or un-clicked.   Sets favorite using a shared preference.
      *
-     * @param view
+     * @param view Current view
      */
     public void onCheckboxClicked(View view) {
         if (favoriteBox.isChecked()) {
@@ -219,6 +224,7 @@ public class AddRecipe extends AppCompatActivity {
         }
     }
 
+    /* // This function is never used. I keep it as a comment just in case someone will use it later.
     private void createRecipe(Recipe recipe) {
         // inserting note in db and getting
         // newly inserted note id
@@ -233,10 +239,11 @@ public class AddRecipe extends AppCompatActivity {
 
         }
     }
+    */
 
     private void checkSharedPreferences() {
         String favoriteCheckbox = mPreferences.getString(checkBox, "False");
-        if (favoriteCheckbox.equals("True")) {
+        if (favoriteCheckbox != null && favoriteCheckbox.equals("True")) {
             favoriteBox.setChecked(true);
         } else
             favoriteBox.setChecked(false);
@@ -271,7 +278,7 @@ public class AddRecipe extends AppCompatActivity {
     /**
      * Shows a dialog to allow users select an image to use on the app.
      *
-     * @param v
+     * @param v Current view
      */
     public void pickImageFromGallery(View v) {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK,
@@ -288,14 +295,14 @@ public class AddRecipe extends AppCompatActivity {
     /**
      * After user selected an image or took a picture, now it's time to show that picture.
      *
-     * @param requestCode
-     * @param resultCode
-     * @param data
+     * @param requestCode Code sent when the startActivityForResult() was called
+     * @param resultCode Result code
+     * @param data Contains data returned by the previously launched activity
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == this.RESULT_CANCELED) {
+        if (resultCode == RESULT_CANCELED) {
             return;
         }
 
@@ -319,7 +326,7 @@ public class AddRecipe extends AppCompatActivity {
                 break;
 
             case CAMERA:
-                Bitmap bitmap = (Bitmap) data.getExtras().get("data");
+                Bitmap bitmap = (Bitmap) Objects.requireNonNull(data.getExtras()).get("data");
                 recipeImage.setImageBitmap(bitmap);
                 imagePath = saveImage(bitmap);
                 Toast.makeText(AddRecipe.this, "Image saved to " + imagePath, Toast.LENGTH_SHORT).show();
@@ -330,7 +337,7 @@ public class AddRecipe extends AppCompatActivity {
     /**
      * Saves the image locally for later use.
      *
-     * @param bitmap
+     * @param bitmap Bitmap to save
      * @return the image path.
      */
     public String saveImage(Bitmap bitmap) {
@@ -341,22 +348,31 @@ public class AddRecipe extends AppCompatActivity {
 
         // Have the object build the directory if needed.
         if (!imageDirectory.exists()) {
-            imageDirectory.mkdirs();
+            if (!imageDirectory.mkdirs()) {
+                Toast.makeText(this, "Image directory could not be created!", Toast.LENGTH_SHORT).show();
+                return "";
+            }
         }
 
         try {
             File f = new File(imageDirectory, Calendar.getInstance()
                     .getTimeInMillis() + ".jpg");
-            f.createNewFile();
-            FileOutputStream outputStream = new FileOutputStream(f);
-            outputStream.write(bytes.toByteArray());
-            MediaScannerConnection.scanFile(this,
-                    new String[]{f.getPath()},
-                    new String[]{"image/jpeg"}, null);
-            outputStream.close();
-            Log.d("TAG", "File saved::--->" + f.getAbsolutePath());
+            if (f.createNewFile()) {
+                FileOutputStream outputStream = new FileOutputStream(f);
+                outputStream.write(bytes.toByteArray());
+                MediaScannerConnection.scanFile(this,
+                        new String[]{f.getPath()},
+                        new String[]{"image/jpeg"}, null);
+                outputStream.close();
+                Log.d("TAG", "File saved::--->" + f.getAbsolutePath());
 
-            return f.getAbsolutePath();
+                return f.getAbsolutePath();
+            }
+            else {
+                Toast.makeText(this, "File could not be created!", Toast.LENGTH_SHORT).show();
+                return "";
+            }
+
         } catch (IOException e) {
             Log.e("ExceptionThrown", "Error Saving Images");
             e.printStackTrace();
