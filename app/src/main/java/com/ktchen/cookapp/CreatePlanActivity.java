@@ -1,15 +1,17 @@
 package com.ktchen.cookapp;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.ktchen.cookapp.database.DatabaseHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * This class is responsible for handling the meal planning functionality.
@@ -19,6 +21,8 @@ import android.widget.Toast;
  */
 public class CreatePlanActivity extends AppCompatActivity {
     public static final String EXTRA_DAYS = "com.ktchen.cookapp/mealPlanDays";
+    private List<Recipe> recipes = new ArrayList<>();
+    private DatabaseHelper db;
     private Button createBtn;
     private EditText days;
 
@@ -29,16 +33,41 @@ public class CreatePlanActivity extends AppCompatActivity {
 
         days = findViewById(R.id.input_days);
 
+        /// Load database to check if we have enough recipes
+        db = DatabaseHelper.getInstance(this);
+        recipes.addAll(db.getAllRecipes());
+        final int nRecipes = recipes.size();
+        if (nRecipes == 0){
+            Toast.makeText(this, "Recipes database is empty", Toast.LENGTH_SHORT).show();
+            finish();   // Finish the activity and return to previous activity
+        }
+
         createBtn = findViewById(R.id.create_plan_button);
         createBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String daysString = days.getText().toString();
-                Intent intent = new Intent(CreatePlanActivity.this, MealPlanActivity.class);
-                intent.putExtra(EXTRA_DAYS, daysString);
-                startActivity(intent);
-                Toast.makeText(CreatePlanActivity.this, "Creating a plan for " + daysString + " days", Toast.LENGTH_SHORT).show();
+                String temp = days.getText().toString();
+                if (days.getText().toString().matches(""))
+                    Toast.makeText(CreatePlanActivity.this, "Type number of days to plan.", Toast.LENGTH_SHORT).show();
+                else {
+                    // Validate the number of days
+                    int nDays = Integer.parseInt(days.getText().toString());
+                    if (nDays == 0)
+                        Toast.makeText(CreatePlanActivity.this, "Number of days must be greater than 0.", Toast.LENGTH_SHORT).show();
+                    else {
+                        if (nRecipes < nDays) {
+                            Toast.makeText(CreatePlanActivity.this, "Number of days is less than recipes. Creating " + nRecipes + " days plan.", Toast.LENGTH_SHORT).show();
+                            nDays = nRecipes;
+                        }
+
+                        Intent intent = new Intent(CreatePlanActivity.this, MealPlanActivity.class);
+                        intent.putExtra(EXTRA_DAYS, nDays);
+                        startActivity(intent);
+                        //Toast.makeText(CreatePlanActivity.this, "Creating a plan for " + daysString + " days", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
     }
+
 }

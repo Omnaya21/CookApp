@@ -31,7 +31,7 @@ import static com.ktchen.cookapp.AddRecipe.EXTRA_MESSAGE;
  * or do something with a recipe.
  */
 public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.ItemClickListener {
-    private List<Recipe> recipes = new ArrayList<Recipe>();
+    private List<Recipe> recipes = new ArrayList<>();
     RecyclerView recyclerView;
     RecipeAdapter adapter;
     private DatabaseHelper db;
@@ -77,9 +77,8 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         Log.i("ActivityInfo", "RecipeActivity created");
 
         recyclerView = findViewById(R.id.recipe_view);
-        //GridLayoutManager gridLayout = new GridLayoutManager(this, 2);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 1));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         adapter = new RecipeAdapter(this, recipes);
         adapter.setClickListener(this);
         recyclerView.setAdapter(adapter);
@@ -157,7 +156,7 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        getMenuInflater().inflate(R.menu.recipes_toolbar_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 

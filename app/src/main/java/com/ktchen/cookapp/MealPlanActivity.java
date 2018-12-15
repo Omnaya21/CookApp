@@ -1,6 +1,7 @@
 package com.ktchen.cookapp;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -13,25 +14,48 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.ktchen.cookapp.database.DatabaseHelper;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 /**
  * This activity will show the Meal Plan details ina list view control
  */
 public class MealPlanActivity extends AppCompatActivity {
+    private List<Recipe> recipes = new ArrayList<>();
+    private DatabaseHelper db;
+    private int nDays = 0;
+    private int totalRecipes = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal_plan);
 
+        /// Add toolbar to activity
         Toolbar createPlanToolbar = findViewById(R.id.meal_plan_toolbar);
         setSupportActionBar(createPlanToolbar);
+
+        // Load the Recipe's database to later add random recipes.
+        db = DatabaseHelper.getInstance(this);
+        recipes.addAll(db.getAllRecipes());
+        totalRecipes = recipes.size();
+
+        // Get the number of days to plan
+        Intent intent = getIntent();
+        if (intent.getExtras() != null) {
+            Bundle extras = intent.getExtras();
+            nDays = extras.getInt(CreatePlanActivity.EXTRA_DAYS);
+        }
+
+        // Set days to plan on a subtitle
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         setTitle("Meal Plan");
+        ab.setSubtitle(nDays + " days");
 
         final ListView mealPlanListView = findViewById(R.id.meal_plan_listview);
 
@@ -40,6 +64,9 @@ public class MealPlanActivity extends AppCompatActivity {
                 "13Dec2018 - Tacos",
                 "14Dec2018 - Spaghetti"
         };
+
+        /// Create the random strings with dates starting today
+        String[] createdPlan = CreateRandomRecipes(nDays, recipes);
 
         final List<String> mealPlanList = new ArrayList<String>(Arrays.asList(planStr));
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1,
@@ -64,6 +91,19 @@ public class MealPlanActivity extends AppCompatActivity {
                         .show();
             }
         });
+    }
+
+    private String[] CreateRandomRecipes(int nDays, List<Recipe> recipes) {
+        String[] result = new String[nDays];
+        Random r = new Random();
+        int randomId;
+
+        for (int count = 0; count < nDays; count++) {
+            randomId = r.nextInt(nDays) + 1;
+            result[count] = recipes.get(randomId).getTitle();
+        }
+
+        return result;
     }
 
     /**

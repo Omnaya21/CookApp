@@ -5,12 +5,16 @@
         android:id="@+id/grid_2"
         android:icon="@drawable/ic_grid_on"
         android:title="View 2 columns"
+        android:checkable="true"
+        android:checked="true"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/grid_1"
         android:icon="@drawable/ic_grid_off"
         android:title="View 1 column"
+        android:checkable="true"
+        android:checked="false"
         app:showAsAction="ifRoom" />
 
 </menu>
