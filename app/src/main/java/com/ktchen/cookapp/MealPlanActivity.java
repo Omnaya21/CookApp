@@ -18,6 +18,8 @@ import com.ktchen.cookapp.database.DatabaseHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
@@ -91,12 +93,11 @@ public class MealPlanActivity extends AppCompatActivity {
 
     private String[] CreateRandomRecipes(int nDays, List<Recipe> recipes) {
         String[] result = new String[nDays];
-        Random r = new Random();
-        int randomId;
 
+        long seed = System.nanoTime();
+        Collections.shuffle(recipes, new Random(seed));
         for (int count = 0; count < nDays; count++) {
-            randomId = r.nextInt(nDays) + 1;
-            result[count] = recipes.get(randomId).getTitle();
+            result[count] = recipes.get(count).getTitle();
         }
 
         return result;
@@ -154,7 +155,18 @@ public class MealPlanActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.send_to_calendar:
-
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MealPlanActivity.this);
+                dialog.setTitle("Send to calendar")
+                        .setMessage("Are you sure you want to add this plan to your calendar?")
+                        .setNegativeButton("Cancel", null)
+                        .setPositiveButton("Add", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int which) {
+                                /// Add every item to the calendar here
+                                ///
+                            }
+                        })
+                        .setIcon(R.drawable.ic_dialog_alert)
+                        .show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
