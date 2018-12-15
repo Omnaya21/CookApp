@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <item
-        android:id="@+id/grid_2"
-        android:icon="@drawable/ic_grid_on"
-        android:title="View 2 columns"
-        android:checkable="true"
-        android:checked="true"
-        app:showAsAction="ifRoom" />
+    <group android:id="@+id/grid_group"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/grid"
+            android:icon="@drawable/ic_grid_on"
+            android:title="View 2 columns"
+            android:checkable="true"
+            android:checked="true"
+            app:showAsAction="ifRoom"/>
 
-    <item
-        android:id="@+id/grid_1"
-        android:icon="@drawable/ic_grid_off"
-        android:title="View 1 column"
-        android:checkable="true"
-        android:checked="false"
-        app:showAsAction="ifRoom" />
-
+    </group>
 </menu>

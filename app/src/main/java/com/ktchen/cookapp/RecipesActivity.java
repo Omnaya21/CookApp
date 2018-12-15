@@ -181,15 +181,17 @@ public class RecipesActivity extends AppCompatActivity implements RecipeAdapter.
         GridLayoutManager layout;
 
         switch(item.getItemId()) {
-            case R.id.grid_1:
+            case R.id.grid:
                 layout = (GridLayoutManager)recyclerView.getLayoutManager();
-                layout.setSpanCount(1);
-                recyclerView.setLayoutManager(layout);
-                return true;
-
-            case R.id.grid_2:
-                layout = (GridLayoutManager)recyclerView.getLayoutManager();
-                layout.setSpanCount(2);
+                item.setChecked(!item.isChecked());
+                if (item.isChecked()) {
+                    item.setIcon(R.drawable.ic_grid_on);
+                    layout.setSpanCount(2);
+                }
+                else {
+                    item.setIcon(R.drawable.ic_grid_off);
+                    layout.setSpanCount(1);
+                }
                 recyclerView.setLayoutManager(layout);
                 return true;
 

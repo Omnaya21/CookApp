@@ -74,9 +74,9 @@ public class AddRecipe extends AppCompatActivity {
         saveUpdateBtn.setText("Save");
         recipeImage = findViewById(R.id.recipe_image);
         favoriteBox = findViewById(R.id.favoriteCheckBox);
-        recipeTitle = (EditText) findViewById(R.id.title);
-        ingredientsBox = (EditText) findViewById((R.id.ingredients));
-        directionsBox = (EditText) findViewById(R.id.preparation);
+        recipeTitle = findViewById(R.id.title);
+        ingredientsBox = findViewById((R.id.ingredients));
+        directionsBox = findViewById(R.id.preparation);
         recipes.addAll(db.getAllRecipes());
         Intent intent = getIntent();
         if (intent.getExtras() != null) {
