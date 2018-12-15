@@ -90,10 +90,10 @@ public class ShoppingListActivity extends AppCompatActivity {
     }
 
     private void AddItem(View v) {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        AlertDialog.Builder dialog = new AlertDialog.Builder(v.getContext());
         dialog.setTitle("New item");
 
-        final EditText input = new EditText(this);
+        final EditText input = new EditText(v.getContext());
         input.setInputType(InputType.TYPE_CLASS_TEXT);
         dialog.setView(input);
 
@@ -119,7 +119,7 @@ public class ShoppingListActivity extends AppCompatActivity {
 
     private String[] GetIngredientsFromDatabase() {
         // Use a HashSet to avoid duplicates automatically
-        HashSet uniqueIngredients = new HashSet<>();
+        HashSet<String> uniqueIngredients = new HashSet<>();
         if (recipes != null) {
             for (Recipe recipe : recipes) {
                 if (!recipe.getIngredients().matches("")) {
@@ -130,6 +130,6 @@ public class ShoppingListActivity extends AppCompatActivity {
                 }
             }
         }
-        return (String[]) uniqueIngredients.toArray(new String[uniqueIngredients.size()]);
+        return uniqueIngredients.toArray(new String[0]);
     }
 }

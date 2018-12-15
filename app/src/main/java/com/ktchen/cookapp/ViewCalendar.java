@@ -22,9 +22,9 @@ public class ViewCalendar extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         // Get a reference for the week view in the layout.
-        calendarView = (CalendarView) findViewById(R.id.calendarView);
+        calendarView = findViewById(R.id.calendarView);
 
-        /**
+        /*
          * Date change listener. Takes clicked on date and sends it through an intent.
          */
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
