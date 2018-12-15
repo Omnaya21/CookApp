@@ -122,10 +122,18 @@ public class recipeTable {
         this.directions = directions;
     }
 
+    /**
+     * Gets the image path.
+     * @return
+     */
     public String getImage() {
         return image;
     }
 
+    /**
+     * Sets image path.
+     * @param image
+     */
     public void setImage(String image) {
         this.image = image;
     }

@@ -27,7 +27,7 @@ import static com.ktchen.cookapp.database.model.recipeTable.TABLE_NAME;
  * @author Jessica Ortner
  */
 public class DatabaseHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 3;
+    private static final int DATABASE_VERSION = 4;
     private static final String DATABASE_NAME = "recipes_db";
     private static DatabaseHelper sInstance = null;
 
