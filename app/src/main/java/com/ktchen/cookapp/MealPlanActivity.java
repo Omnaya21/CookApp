@@ -17,6 +17,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * This activity will show the Meal Plan details ina list view control
+ */
 public class MealPlanActivity extends AppCompatActivity {
 
     @Override
@@ -32,7 +35,7 @@ public class MealPlanActivity extends AppCompatActivity {
 
         final ListView mealPlanListView = findViewById(R.id.meal_plan_listview);
 
-        String[] planStr = {
+        String[] planStr = new String[]{
                 "12Dec2018 - Baked potatoes",
                 "13Dec2018 - Tacos",
                 "14Dec2018 - Spaghetti"

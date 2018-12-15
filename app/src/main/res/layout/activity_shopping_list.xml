@@ -23,7 +23,7 @@
     </android.support.v7.widget.Toolbar>
 
     <ListView
-        android:id="@+id/shoppingListView"
+        android:id="@+id/shopping_listview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

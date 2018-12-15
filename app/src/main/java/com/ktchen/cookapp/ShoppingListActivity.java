@@ -25,13 +25,15 @@ public class ShoppingListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_shopping_list);
+
+        /// Code to show the toolbar
         Toolbar shoppingToolbar = findViewById(R.id.shopping_list_toolbar);
         setSupportActionBar(shoppingToolbar);
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
         setTitle("Shopping List");
 
-        final ListView shoppingList = (ListView) findViewById(R.id.shoppingListView);
+        final ListView shoppingList = findViewById(R.id.shopping_listview);
 
         /// Before showing the list we have to search into our meal plan
         /// and grab the ingredients we need to show
