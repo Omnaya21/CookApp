@@ -8,9 +8,11 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.text.InputType;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -27,6 +29,8 @@ import java.util.List;
 public class ShoppingListActivity extends AppCompatActivity {
     private List<Recipe> recipes = new ArrayList<>();
     private List<String> ingredientsList;
+    private ArrayAdapter<String> adapter;
+    private String textNewItem = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,25 +52,9 @@ public class ShoppingListActivity extends AppCompatActivity {
 
         /// Before showing the list we have to search into our meal plan
         /// and grab the ingredients we need to show
-        /*String[] ingredients = new String[]{
-                "Milk",
-                "Eggs",
-                "Cream cheese",
-                "Pepper",
-                "Soy sauce",
-                "Oil",
-                "Flour",
-                "Jello",
-                "Cinnamon",
-                "Cookies",
-                "Mint",
-                "Sugar",
-                "Apples"
-        }; */
-
         String[] ingredients = GetIngredientsFromDatabase();
         ingredientsList = new ArrayList<>(Arrays.asList(ingredients));
-        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
                 ingredientsList);
         shoppingList.setAdapter(adapter);
         shoppingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -96,10 +84,39 @@ public class ShoppingListActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                ingredientsList.add("New item");
-                adapter.notifyDataSetChanged();
+                AddItem(v);
+                //ingredientsList.add("New item");
+                //adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    private void AddItem(View v) {
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle("New item");
+
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        dialog.setView(input);
+
+        dialog.setPositiveButton("Add", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                textNewItem = input.getText().toString();
+                if (!textNewItem.matches("")) {
+                    ingredientsList.add(textNewItem);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
+
+        dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        dialog.show();
     }
 
     private String[] GetIngredientsFromDatabase() {
