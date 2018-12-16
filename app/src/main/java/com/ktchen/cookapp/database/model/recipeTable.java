@@ -124,7 +124,7 @@ public class recipeTable {
 
     /**
      * Gets the image path.
-     * @return
+     * @return Returns the image pat o the recipe.
      */
     public String getImage() {
         return image;
@@ -132,7 +132,7 @@ public class recipeTable {
 
     /**
      * Sets image path.
-     * @param image
+     * @param image Image path for the recipe.
      */
     public void setImage(String image) {
         this.image = image;
