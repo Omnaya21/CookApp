@@ -158,7 +158,7 @@ public class Recipe implements Serializable {
 
     /**
      * Sets the imagePath.
-     * @param imagePath
+     * @param imagePath Image path for the picture
      */
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
@@ -166,7 +166,7 @@ public class Recipe implements Serializable {
 
     /**
      * Returns the imagePath.
-     * @return
+     * @return Returns the image path
      */
     public String getImagePath() {
         return imagePath;

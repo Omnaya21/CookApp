@@ -21,14 +21,13 @@ import static org.junit.Assert.*;
 @RunWith(RobolectricTestRunner.class)
 
 public class UnitTest {
-    Recipe recipe;
-    DatabaseHelper db;
-    Context context;
+    private Recipe recipe;
+    private DatabaseHelper db;
 
     @Before
     public void setUp() throws Exception {
         recipe= new Recipe("soup","ingredients", "directions");
-        context = ApplicationProvider.getApplicationContext();
+        Context context = ApplicationProvider.getApplicationContext();
         db = DatabaseHelper.getInstance(context);
         long id= db.insertRecipe(recipe);
         recipe.setID(id);
