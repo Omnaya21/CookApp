@@ -111,14 +111,6 @@ public class Recipe implements Serializable {
         return title;
     }
 
-    // public Image getPicture() {
-    //   return picture;
-    //}
-
-    // public void setPicture(Image picture) {
-    //   this.picture = picture;
-    //}
-
     /**
      * Getter for ingredients.
      *
@@ -164,9 +156,18 @@ public class Recipe implements Serializable {
         return this;
     }
 
+    /**
+     * Sets the imagePath.
+     * @param imagePath Image path for the picture
+     */
     public void setImagePath(String imagePath) {
         this.imagePath = imagePath;
     }
+
+    /**
+     * Returns the imagePath.
+     * @return Returns the image path
+     */
     public String getImagePath() {
         return imagePath;
     }

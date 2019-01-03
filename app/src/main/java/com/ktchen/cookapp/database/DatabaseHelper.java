@@ -109,7 +109,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[]{COLUMN_ID, COLUMN_TITLE, COLUMN_INGREDIENT, COLUMN_DIRECTION, COLUMN_IMAGE},
                 COLUMN_ID + "=?",
                 new String[]{String.valueOf(id)}, null, null, null, null);
-        if (cursor != null) {
+        if (cursor != null ) {
             cursor.moveToFirst();
 
             //prepares new Recipe object.
@@ -193,7 +193,4 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.delete(TABLE_NAME,null,null);
         db.close();
     }
-
 }
-
-
